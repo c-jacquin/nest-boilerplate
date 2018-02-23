@@ -1,16 +1,15 @@
 {
   "name": "nest-typescript-starter",
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "Nest TypeScript starter kit",
   "license": "MIT",
   "scripts": {
+    "build": "cross-env NODE_ENV=staging tsc",
     "cz": "git-cz",
-    "precommit": "lint-staged",
+    "dev": "cross-env NODE_ENV=local nodemon",
     "lint": "tslint \"./src/**/*.ts\" \"./src/**/*.tsx\"",
-    "start": "node index.js",
-    "start:watch": "nodemon",
-    "prestart:prod": "tsc",
-    "start:prod": "node dist/main.js"
+    "precommit": "lint-staged",
+    "start": "node dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^4.5.9",

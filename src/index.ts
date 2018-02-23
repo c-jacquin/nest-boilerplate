@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
+import * as yenv from 'yenv';
+
 import { ApplicationModule } from './app.module';
 
-async function bootstrap() {
+(async () => {
+  const env = yenv();
   const app = await NestFactory.create(ApplicationModule);
-  await app.listen(3000);
-}
-bootstrap();
+  await app.listen(env.PORT);
+})();
