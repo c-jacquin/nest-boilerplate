@@ -21,7 +21,8 @@
     "redis": "^2.7.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^5.5.6",
-    "typescript": "^2.7.2"
+    "typescript": "^2.7.2",
+    "yenv": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
