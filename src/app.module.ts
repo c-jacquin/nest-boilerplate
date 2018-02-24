@@ -4,12 +4,13 @@ import * as path from 'path';
 import * as yenv from 'yenv';
 
 import { Env } from './_core/env.component';
+import { Logger } from './_core/logger.component';
 import { AppController } from './app.controller';
 
 const env = yenv();
 
 @Module({
-  components: [Env],
+  components: [Env, Logger],
   controllers: [AppController],
   imports: [
     TypeOrmModule.forRoot({

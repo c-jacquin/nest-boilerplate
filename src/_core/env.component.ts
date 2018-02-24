@@ -10,6 +10,7 @@ enum AppEnv {
 
 @Component()
 export class Env {
+  public LOG_LEVEL: string;
   public NODE_ENV: string;
   public PORT: number;
   public TYPEORM_CONNECTION: 'mongodb';
