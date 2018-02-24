@@ -32,7 +32,7 @@ const env = yenv();
 })
 export class ApplicationModule implements NestModule {
   public configure(consumer: MiddlewaresConsumer): void {
-    consumer.apply(RequestIdMiddleware).forRoutes(AppController);
-    consumer.apply(RequestLoggerMiddleware).forRoutes(AppController);
+    consumer.apply(RequestIdMiddleware).forRoutes({ path: '*' });
+    consumer.apply(RequestLoggerMiddleware).forRoutes({ path: '*' });
   }
 }
