@@ -2,7 +2,7 @@ import { Component } from '@nestjs/common';
 import { createNamespace, getNamespace } from 'cls-hooked';
 import * as yenv from 'yenv';
 
-import { Env } from './env.component';
+import { Env } from '../env/env.component';
 
 export enum ContextTypes {
   ROOT = 'context',

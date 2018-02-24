@@ -4,12 +4,12 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 import * as uuid from 'uuid';
 
-import { Context } from './context.component';
-import { Env } from './env.component';
-import { Logger } from './logger.component';
+import { Context } from '../context/context.component';
+import { Env } from '../env/env.component';
+import { Logger } from '../logger/logger.component';
 
 @Middleware()
-export class RequestLoggerMiddleware implements NestMiddleware {
+export class LoggerMiddleware implements NestMiddleware {
   private format: string;
 
   constructor(private env: Env, ctx: Context) {

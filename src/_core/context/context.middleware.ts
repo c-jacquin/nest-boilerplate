@@ -1,7 +1,7 @@
 import { ExpressMiddleware, Middleware, NestMiddleware } from '@nestjs/common';
 import * as uuid from 'uuid';
 
-import { Context, ContextTypes } from './context.component';
+import { Context, ContextTypes } from '../context/context.component';
 
 @Middleware()
 export class ContextMiddleware implements NestMiddleware {

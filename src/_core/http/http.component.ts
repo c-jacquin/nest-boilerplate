@@ -1,6 +1,8 @@
+import { Component } from '@nestjs/common';
 import * as axios from 'axios';
-import { Logger } from './logger.component';
+import { Logger } from '../logger/logger.component';
 
+@Component()
 export class Http {
   constructor(private logger: Logger) {
     axios.default.interceptors.response.use(

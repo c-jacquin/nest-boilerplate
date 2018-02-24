@@ -2,8 +2,8 @@ import { Component } from '@nestjs/common';
 import * as clfDate from 'clf-date';
 import { Logger as WinstonLogger, transports } from 'winston';
 
-import { Context } from './context.component';
-import { Env } from './env.component';
+import { Context } from '../context/context.component';
+import { Env } from '../env/env.component';
 
 @Component()
 export class Logger extends WinstonLogger {
