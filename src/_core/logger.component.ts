@@ -2,18 +2,18 @@ import { Component } from '@nestjs/common';
 import * as clfDate from 'clf-date';
 import { Logger as WinstonLogger, transports } from 'winston';
 
+import { Context } from './context.component';
 import { Env } from './env.component';
-
-const formatter = options =>
-  `${
-    options.meta && options.meta.requestId
-      ? `[RQID=${options.meta.requestId}]`
-      : ''
-  } [PID=${process.pid}] [${clfDate()}]  ${options.message}`;
 
 @Component()
 export class Logger extends WinstonLogger {
-  constructor(env: Env) {
+  constructor(env: Env, ctx: Context) {
+    const formatter = ({ message }) => {
+      const rId = ctx.requestId;
+
+      return `[RQID=${rId}] [PID=${process.pid}] [${clfDate()}] ${message}`;
+    };
+
     super({
       transports: [
         env.isProduction()

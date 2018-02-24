@@ -4,6 +4,7 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 import * as uuid from 'uuid';
 
+import { Context } from './context.component';
 import { Env } from './env.component';
 import { Logger } from './logger.component';
 
@@ -11,11 +12,11 @@ import { Logger } from './logger.component';
 export class RequestLoggerMiddleware implements NestMiddleware {
   private format: string;
 
-  constructor(private env: Env) {
+  constructor(private env: Env, ctx: Context) {
     this.format =
       '[RQID=:request-id] [PID=:process-id] [:date[clf]] :method :url :status :response-time ms';
 
-    morgan.token('request-id', (req: any) => req.requestId);
+    morgan.token('request-id', () => ctx.requestId);
     morgan.token('process-id', () => process.pid);
   }
 
