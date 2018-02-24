@@ -9,6 +9,7 @@ import * as path from 'path';
 import * as yenv from 'yenv';
 
 import { Env } from './_core/env.component';
+import { Http } from './_core/http.component';
 import { Logger } from './_core/logger.component';
 import { RequestIdMiddleware } from './_core/requestId.middleware';
 import { RequestLoggerMiddleware } from './_core/requestLogger.middleware';
@@ -17,7 +18,7 @@ import { AppController } from './app.controller';
 const env = yenv();
 
 @Module({
-  components: [Env, Logger],
+  components: [Env, Http, Logger],
   controllers: [AppController],
   imports: [
     TypeOrmModule.forRoot({
