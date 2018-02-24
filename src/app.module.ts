@@ -1,11 +1,24 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as path from 'path';
+import * as yenv from 'yenv';
 
+import { Env } from './_core/env.component';
 import { AppController } from './app.controller';
-import { CoreModule } from './core/core.module';
+
+const env = yenv();
 
 @Module({
-  components: [],
+  components: [Env],
   controllers: [AppController],
-  imports: [CoreModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      entities: [path.join(process.cwd(), env.TYPEORM_ENTITIES)],
+      logging: env.TYPEORM_LOGGING,
+      synchronize: env.TYPEORM_SYNCHRONIZE,
+      type: env.TYPEORM_CONNECTION,
+      url: env.TYPEORM_URL,
+    }),
+  ],
 })
 export class ApplicationModule {}

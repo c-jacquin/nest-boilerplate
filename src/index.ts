@@ -3,8 +3,7 @@ import * as yenv from 'yenv';
 
 import { ApplicationModule } from './app.module';
 
-(async () => {
-  const env = yenv();
+(async env => {
   const app = await NestFactory.create(ApplicationModule);
   await app.listen(env.PORT);
-})();
+})(yenv());

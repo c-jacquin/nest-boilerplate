@@ -12,6 +12,11 @@ enum AppEnv {
 export class Env {
   public NODE_ENV: string;
   public PORT: number;
+  public TYPEORM_CONNECTION: 'mongodb';
+  public TYPEORM_ENTITIES: string;
+  public TYPEORM_LOGGING: boolean;
+  public TYPEORM_SYNCHRONIZE: boolean;
+  public TYPEORM_URL: string;
 
   constructor() {
     return Object.assign(this, yenv());
