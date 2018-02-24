@@ -10,7 +10,7 @@ enum AppEnv {
 
 @Component()
 export class Env {
-  public LOG_ERROR_FILE: string;
+  public LOG_FILE: string;
   public LOG_LEVEL: string;
   public NODE_ENV: string;
   public PORT: number;

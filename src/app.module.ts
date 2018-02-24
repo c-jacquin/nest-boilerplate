@@ -11,6 +11,7 @@ import * as yenv from 'yenv';
 import { Env } from './_core/env.component';
 import { Logger } from './_core/logger.component';
 import { RequestIdMiddleware } from './_core/requestId.middleware';
+import { RequestLoggerMiddleware } from './_core/requestLogger.middleware';
 import { AppController } from './app.controller';
 
 const env = yenv();
@@ -31,5 +32,6 @@ const env = yenv();
 export class ApplicationModule implements NestModule {
   public configure(consumer: MiddlewaresConsumer): void {
     consumer.apply(RequestIdMiddleware).forRoutes(AppController);
+    consumer.apply(RequestLoggerMiddleware).forRoutes(AppController);
   }
 }
