@@ -25,7 +25,6 @@ export class Context {
 
   public set locale(locale: string) {
     this.getContext().set(ContextTypes.LOCALE, locale);
-    this.locale = locale;
   }
 
   public get locale() {
