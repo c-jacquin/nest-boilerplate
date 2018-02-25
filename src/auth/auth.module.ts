@@ -3,11 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CoreModule } from '../_core';
 import { UserModule } from '../user';
-import { Auth } from './auth.component';
+import { AuthService } from './auth.component';
 import { AuthController } from './auth.controller';
 
 @Module({
-  components: [Auth],
+  components: [AuthService],
   controllers: [AuthController],
   imports: [CoreModule, UserModule],
 })

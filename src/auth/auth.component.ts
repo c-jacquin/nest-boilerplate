@@ -12,7 +12,7 @@ interface IAuthResponse<U> {
 }
 
 @Component()
-export class Auth {
+export class AuthService {
   constructor(private env: Env, private http: Http) {}
 
   public async github({
