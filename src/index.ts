@@ -11,7 +11,7 @@ import { ApplicationModule } from './app.module';
     .setTitle('Nest Boilerplate')
     .setDescription('The nest boilerplate API')
     .setVersion('1.0')
-    .addTag('auth', 'github')
+    .addTag('auth')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
