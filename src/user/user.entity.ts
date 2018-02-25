@@ -6,7 +6,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 
-import { IGithubUser } from './helpers/IGithubUser';
+import { IGithubUser } from '../auth/helpers/IGithubUser';
 
 @Entity()
 export class User {
