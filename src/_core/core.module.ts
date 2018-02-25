@@ -3,13 +3,14 @@ import { MiddlewaresConsumer, Module, NestModule } from '@nestjs/common';
 import { Context, ContextMiddleware } from './context';
 import { DatabaseModule } from './database';
 import { Env } from './env';
+import { NotFoundFilter } from './error';
 import { Http } from './http';
 import { I18n, I18nMiddleware } from './i18n';
 import { Logger, LoggerMiddleware } from './logger';
 
 @Module({
-  components: [Context, Env, Http, I18n, Logger],
-  exports: [Context, Env, Http, I18n, Logger],
+  components: [Context, Env, Http, I18n, Logger, NotFoundFilter],
+  exports: [Context, Env, Http, I18n, Logger, NotFoundFilter],
   imports: [DatabaseModule],
 })
 export class CoreModule implements NestModule {

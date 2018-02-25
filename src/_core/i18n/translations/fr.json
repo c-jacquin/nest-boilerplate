@@ -1,3 +1,5 @@
 {
-  "hello": "Salut le monde"
+  "error": {
+    "notFound": "La resource que vous demandez n'existe pas."
+  }
 }
