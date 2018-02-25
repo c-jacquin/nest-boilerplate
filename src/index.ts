@@ -3,15 +3,17 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as yenv from 'yenv';
 
 import { CoreModule } from './_core';
-import { NotFoundFilter } from './_core/error';
+import { BadRequestFilter, NotFoundFilter } from './_core/error';
 import { ApplicationModule } from './app.module';
 
 (async env => {
   const app = await NestFactory.create(ApplicationModule);
+  const coreModule = app.select(CoreModule);
 
-  const notFoundFilter = app.select(CoreModule).get(NotFoundFilter);
-
-  app.useGlobalFilters(notFoundFilter);
+  app.useGlobalFilters(
+    coreModule.get(BadRequestFilter),
+    coreModule.get(NotFoundFilter),
+  );
 
   const options = new DocumentBuilder()
     .setTitle('Nest Boilerplate')

@@ -1,5 +1,9 @@
 {
   "error": {
-    "notFound": "the requested resource doesn't exist."
+    "badRequest": "The property %{property}, %{constraint}.",
+    "notFound": "The requested resource doesn't exist."
+  },
+  "validation": {
+    "isString": "must be a string"
   }
 }
