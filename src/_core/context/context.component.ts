@@ -5,6 +5,7 @@ import * as yenv from 'yenv';
 import { Env } from '../env/env.component';
 
 export enum ContextTypes {
+  LOCALE = 'locale',
   ROOT = 'context',
   REQUEST = 'request',
   RESPONSE = 'response',
@@ -20,6 +21,11 @@ export class Context {
     session.run(() => {
       cb(session);
     });
+  }
+
+  public set locale(locale: string) {
+    this.getContext().set(ContextTypes.LOCALE, locale);
+    this.locale = locale;
   }
 
   public get requestId() {

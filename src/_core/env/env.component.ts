@@ -10,6 +10,7 @@ enum AppEnv {
 
 @Component()
 export class Env {
+  public DEFAULT_LOCALE: string;
   public GITHUB_API: string;
   public GITHUB_SECRET: string;
   public GITHUB_TOKEN_URI: string;
