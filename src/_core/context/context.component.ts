@@ -28,6 +28,10 @@ export class Context {
     this.locale = locale;
   }
 
+  public get locale() {
+    return this.getContext().get(ContextTypes.LOCALE);
+  }
+
   public get requestId() {
     return this.getRequest().id;
   }

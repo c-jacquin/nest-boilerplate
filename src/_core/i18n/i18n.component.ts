@@ -1,6 +1,7 @@
 import { Component } from '@nestjs/common';
 import * as Polyglot from 'node-polyglot';
 
+import { Context } from '../context';
 import { Env } from '../env';
 import * as enMessages from './translations/en.json';
 import * as frMessages from './translations/fr.json';
@@ -12,7 +13,7 @@ export class I18n extends Polyglot {
     fr: frMessages,
   };
 
-  constructor(env: Env) {
+  constructor(env: Env, private ctx: Context) {
     super({
       locale: env.DEFAULT_LOCALE,
       phrases: I18n.messages[env.DEFAULT_LOCALE],
@@ -26,6 +27,11 @@ export class I18n extends Polyglot {
   }
 
   public translate(phrase: string, variables?: any): string {
+    const ctxLocale = this.ctx.locale;
+
+    if (this.locale() !== ctxLocale) {
+      this.setLocale(ctxLocale);
+    }
     return this.t(phrase, variables);
   }
 }
