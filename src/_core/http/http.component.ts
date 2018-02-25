@@ -1,5 +1,7 @@
 import { Component } from '@nestjs/common';
+import autobind from 'autobind-decorator';
 import * as axios from 'axios';
+
 import { Logger } from '../logger/logger.component';
 
 @Component()
@@ -27,6 +29,7 @@ export class Http {
     return axios.default.put(uri, body, config);
   }
 
+  @autobind
   private successInterceptor(response) {
     this.logger.info(
       `Http => ${response.config.method.toUpperCase()} ` +
@@ -35,6 +38,7 @@ export class Http {
     return response;
   }
 
+  @autobind
   private errorInterceptor(error) {
     this.logger.error(
       `Http => ${error.config.method.toUpperCase()} ` +

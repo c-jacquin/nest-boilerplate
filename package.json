@@ -19,6 +19,7 @@
     "@nestjs/testing": "^4.5.5",
     "@nestjs/typeorm": "^2.0.0",
     "@nestjs/websockets": "^4.5.8",
+    "autobind-decorator": "^2.1.0",
     "axios": "^0.18.0",
     "class-transformer": "^0.1.9",
     "class-validator": "^0.8.1",
