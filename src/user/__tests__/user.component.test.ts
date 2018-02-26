@@ -4,6 +4,7 @@ import { suite, test } from 'mocha-typescript';
 import * as sinon from 'sinon';
 
 import { Repository } from '../../__mocks__/Repository.mock';
+import { I18nModule } from '../../_core';
 import { UserService } from '../user.component';
 
 @suite('unit UserService component')
@@ -49,6 +50,7 @@ class UserServiceUnit {
           useClass: Repository,
         },
       ],
+      imports: [I18nModule],
     }).compile();
 
     this.userRepository = module.get<Repository>('UserRepository');

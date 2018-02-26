@@ -2,15 +2,20 @@ import { Component } from '@nestjs/common';
 import autobind from 'autobind-decorator';
 import * as axios from 'axios';
 
+import { Context } from '../context';
 import { Logger } from '../logger';
 
 @Component()
 export class Http {
-  constructor(private logger: Logger) {
+  private static REQUEST_TIMER = 'request-timer';
+
+  constructor(private ctx: Context, private logger: Logger) {
     axios.default.interceptors.response.use(
       this.successInterceptor,
       this.errorInterceptor,
     );
+
+    axios.default.interceptors.request.use(this.requestInterceptor);
   }
 
   public delete(uri: string, config?: axios.AxiosRequestConfig) {
@@ -29,21 +34,48 @@ export class Http {
     return axios.default.put(uri, body, config);
   }
 
+  private getRequestDuration() {
+    return Date.now() - this.ctx.store.get(Http.REQUEST_TIMER);
+  }
+
+  private formatLogMessage({ message, method, url, status }) {
+    return (
+      `Http => ${method} ${url} ${status}` +
+      (message ? ` - ${message}` : '') +
+      ` - ${this.getRequestDuration()}ms`
+    );
+  }
+
+  @autobind
+  private requestInterceptor(config) {
+    this.ctx.store.set(Http.REQUEST_TIMER, Date.now());
+    return config;
+  }
+
   @autobind
   private successInterceptor(response) {
     this.logger.info(
-      `Http => ${response.config.method.toUpperCase()} ` +
-        `${response.config.url} ${response.status}`,
+      this.formatLogMessage({
+        message: null,
+        method: response.config.method.toUpperCase(),
+        status: response.status,
+        url: response.url,
+      }),
     );
     return response;
   }
 
   @autobind
   private errorInterceptor(error) {
-    this.logger.error(
-      `Http => ${error.config.method.toUpperCase()} ` +
-        `${error.config.url} ${error.response.status} - ${error.message}`,
+    return Promise.reject(
+      new Error(
+        this.formatLogMessage({
+          message: error.message,
+          method: error.config.method.toUpperCase(),
+          status: error.response.status,
+          url: error.config.url,
+        }),
+      ),
     );
-    return Promise.reject(error);
   }
 }

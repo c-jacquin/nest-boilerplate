@@ -5,6 +5,7 @@ import {
   BadRequestFilter,
   Env,
   ExceptionModule,
+  InternalErrorFilter,
   NotFoundFilter,
 } from './_core';
 import { ApplicationModule } from './app.module';
@@ -15,6 +16,7 @@ import { ApplicationModule } from './app.module';
 
   app.useGlobalFilters(
     exceptionModule.get(BadRequestFilter),
+    exceptionModule.get(InternalErrorFilter),
     exceptionModule.get(NotFoundFilter),
   );
 

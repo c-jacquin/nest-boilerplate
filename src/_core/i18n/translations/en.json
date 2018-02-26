@@ -1,7 +1,11 @@
 {
   "error": {
     "badRequest": "The property %{property}, %{constraint}.",
-    "notFound": "The requested resource doesn't exist."
+    "notFound": "The requested resource doesn't exist.",
+    "internal": {
+      "database": "The database is not available for the moment, please try again later",
+      "github": "The github api is not available for the moment, please try again later"
+    }
   },
   "validation": {
     "isString": "must be a string"

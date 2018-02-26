@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { DatabaseModule, EnvModule, HttpModule } from '../_core';
+import { DatabaseModule, EnvModule, HttpModule, I18nModule } from '../_core';
 
 import { UserService } from './user.component';
 import { User } from './user.entity';
@@ -13,6 +13,7 @@ import { User } from './user.entity';
     DatabaseModule,
     EnvModule,
     HttpModule,
+    I18nModule,
     TypeOrmModule.forFeature([User]),
   ],
 })
