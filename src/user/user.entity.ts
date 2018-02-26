@@ -10,7 +10,16 @@ import { IGithubUser } from '../auth/helpers/IGithubUser';
 
 @Entity()
 export class User {
-  @ObjectIdColumn() public id: ObjectID;
+  public static fromGithub(user: IGithubUser) {
+    return {
+      avatar: user.avatar_url,
+      email: user.email,
+      login: user.login,
+      name: user.name,
+    };
+  }
+
+  @ObjectIdColumn() public id?: ObjectID;
 
   @Column() public avatar: string;
 
@@ -20,11 +29,4 @@ export class User {
   public login: string;
 
   @Column() public name: string;
-
-  constructor(user: IGithubUser) {
-    this.avatar = user.avatar_url;
-    this.email = user.email;
-    this.login = user.login;
-    this.name = user.name;
-  }
 }

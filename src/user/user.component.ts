@@ -13,11 +13,14 @@ export class UserService {
 
   public async findOrCreate(data: IGithubUser) {
     let user = await this.userRepository.findOne({ login: data.login });
-
     if (!user) {
-      user = await this.userRepository.save(new User(data));
+      user = await this.userRepository.save(User.fromGithub(data));
     }
 
     return user;
+  }
+
+  public async removeAll() {
+    return this.userRepository.clear();
   }
 }
