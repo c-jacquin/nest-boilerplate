@@ -16,34 +16,38 @@ export class Context {
   constructor(private env: Env) {}
 
   public create(cb) {
-    const session = createNamespace(ContextTypes.ROOT);
-
-    session.run(() => {
-      cb(session);
-    });
+    createNamespace(ContextTypes.ROOT).run(cb);
   }
 
   public set locale(locale: string) {
-    this.getContext().set(ContextTypes.LOCALE, locale);
+    this.context.set(ContextTypes.LOCALE, locale);
   }
 
   public get locale() {
-    return this.getContext().get(ContextTypes.LOCALE);
+    return this.context.get(ContextTypes.LOCALE);
+  }
+
+  public set request(request) {
+    this.context.set(ContextTypes.REQUEST, request);
+  }
+
+  public get request() {
+    return this.context.get(ContextTypes.REQUEST);
+  }
+
+  public get response() {
+    return this.context.get(ContextTypes.RESPONSE);
+  }
+
+  public set response(response) {
+    this.context.set(ContextTypes.RESPONSE, response);
   }
 
   public get requestId() {
-    return this.getRequest().id;
+    return this.request.id;
   }
 
-  private getContext() {
+  public get context() {
     return getNamespace(ContextTypes.ROOT);
-  }
-
-  private getRequest() {
-    return this.getContext().get(ContextTypes.REQUEST);
-  }
-
-  private getResponse() {
-    return this.getContext().get(ContextTypes.RESPONSE);
   }
 }
