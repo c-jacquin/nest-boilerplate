@@ -29,7 +29,7 @@ export class Logger extends WinstonLogger {
               colorize: true,
               formatter,
               json: false,
-              level: env.LOG_LEVEL,
+              level: env.DEBUG ? 'debug' : env.LOG_LEVEL,
             }),
       ],
     });

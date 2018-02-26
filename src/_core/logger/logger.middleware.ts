@@ -1,14 +1,20 @@
 import { ExpressMiddleware, Middleware, NestMiddleware } from '@nestjs/common';
+import * as JsMeter from 'js-meter';
 import * as onHeaders from 'on-headers';
 
-import { Logger } from '../logger';
+import { Env } from '../env';
+import { Logger } from './logger.component';
 
 @Middleware()
 export class LoggerMiddleware implements NestMiddleware {
-  constructor(private logger: Logger) {}
+  constructor(private env: Env, private logger: Logger) {}
 
   public resolve(...args: any[]): ExpressMiddleware {
     return (req, res, next) => {
+      let jsMeter: JsMeter;
+      if (this.env.DEBUG) {
+        jsMeter = new JsMeter({ isPrint: false, isMs: true, isKb: true });
+      }
       const startAt = Date.now();
 
       onHeaders(res, () => {
@@ -18,6 +24,18 @@ export class LoggerMiddleware implements NestMiddleware {
         this.logger.info(
           `${req.method} ${req.url} ${res.statusCode} ${time}ms`,
         );
+        if (this.env.DEBUG) {
+          const {
+            diffCPU,
+            diffHeapTotal,
+            diffHeapUsed,
+            diffExternal,
+            diffRAM,
+          } = jsMeter.stop();
+          this.logger.debug(
+            `CPU: ${diffCPU}ms RAM: ${diffRAM}kb HeapTotal: ${diffHeapTotal}kb HeapUsed: ${diffHeapUsed}kb External: ${diffExternal}kb`,
+          );
+        }
       });
       next();
     };

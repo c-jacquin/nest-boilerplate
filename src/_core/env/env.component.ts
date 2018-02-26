@@ -2,14 +2,15 @@ import { Component } from '@nestjs/common';
 import * as yenv from 'yenv';
 
 enum AppEnv {
-  TEST = 'test',
   LOCAL = 'local',
   PRODUCTION = 'production',
   STAGING = 'staging',
+  TEST = 'test',
 }
 
 @Component()
 export class Env {
+  public DEBUG: boolean;
   public DEFAULT_LOCALE: string;
   public GITHUB_API: string;
   public GITHUB_SECRET: string;
@@ -28,10 +29,6 @@ export class Env {
     return Object.assign(this, yenv());
   }
 
-  public isTest() {
-    return this.NODE_ENV === AppEnv.TEST;
-  }
-
   public isLocal() {
     return this.NODE_ENV === AppEnv.LOCAL;
   }
@@ -42,5 +39,9 @@ export class Env {
 
   public isStaging() {
     return this.NODE_ENV === AppEnv.STAGING;
+  }
+
+  public isTest() {
+    return this.NODE_ENV === AppEnv.TEST;
   }
 }
