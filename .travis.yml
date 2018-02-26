@@ -1,0 +1,25 @@
+language: node_js
+
+services:
+  - mongodb
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+node_js:
+  - "9"
+
+install:
+  - yarn
+
+script:
+  - yarn lint
+  - yarn test
+  - yarn build
+
+branches:
+  only:
+  - master
+  - staging
