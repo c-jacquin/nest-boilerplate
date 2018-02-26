@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "cz": "git-cz",
     "dev": "cross-env NODE_ENV=local nodemon",
     "lint": "tslint \"./src/**/*.ts\" \"./src/**/*.tsx\"",
@@ -49,6 +50,7 @@
     "@types/winston": "^2.3.8",
     "chai": "^4.1.2",
     "commitizen": "^2.9.6",
+    "coveralls": "^3.0.0",
     "cross-env": "^5.1.3",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^0.14.3",

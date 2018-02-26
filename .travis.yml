@@ -18,6 +18,7 @@ script:
   - yarn lint
   - yarn test
   - yarn build
+  - yarn coveralls
 
 branches:
   only:
