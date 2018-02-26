@@ -6,6 +6,7 @@ import {
   Env,
   ExceptionModule,
   InternalErrorFilter,
+  LoggerModule,
   NotFoundFilter,
 } from './_core';
 import { ApplicationModule } from './app.module';

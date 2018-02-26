@@ -13,8 +13,6 @@ import { LoggerMiddleware } from './logger.middleware';
 export class LoggerModule implements NestModule {
   constructor(private env: Env) {}
   public configure(consumer: MiddlewaresConsumer): void {
-    if (!this.env.isTest()) {
-      consumer.apply(LoggerMiddleware).forRoutes({ path: '*' });
-    }
+    consumer.apply(LoggerMiddleware).forRoutes({ path: '*' });
   }
 }
