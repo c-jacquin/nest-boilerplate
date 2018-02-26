@@ -21,17 +21,18 @@ export class I18n extends Polyglot {
   }
 
   public setLocale(locale: string): void {
-    this.locale(locale);
+    if (
+      Object.keys(I18n.messages).includes(locale) &&
+      this.locale() !== locale
+    ) {
+      this.locale(locale);
+      this.ctx.locale = locale;
 
-    this.extend(I18n.messages[locale]);
+      this.extend(I18n.messages[locale]);
+    }
   }
 
   public translate(phrase: string, variables?: any): string {
-    const ctxLocale = this.ctx.locale;
-
-    if (this.locale() !== ctxLocale) {
-      this.setLocale(ctxLocale);
-    }
     return this.t(phrase, variables);
   }
 }
