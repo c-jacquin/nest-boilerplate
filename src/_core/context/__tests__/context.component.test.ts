@@ -25,21 +25,10 @@ class ContextComponentUnit {
     expect(cbSpy.called).to.equal(true);
   }
 
-  @test('locale should call set method of the context and set the locale prop')
-  public locale(done) {
-    this.ctx.create(() => {
-      const spy = sinon.spy(this.ctx.context, 'set');
-      this.ctx.locale = 'fr';
-      expect(spy.called).to.equal(true);
-      expect(this.ctx.locale).to.equal('fr');
-      done();
-    });
-  }
-
-  @test('response should call set method of the context')
+  @test('response should call set method of the store')
   public response(done) {
     this.ctx.create(() => {
-      const spy = sinon.spy(this.ctx.context, 'set');
+      const spy = sinon.spy(this.ctx.store, 'set');
       this.ctx.response = 'foo';
       expect(spy.called).to.equal(true);
       expect(this.ctx.response).to.equal('foo');

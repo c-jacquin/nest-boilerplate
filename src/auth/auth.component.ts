@@ -1,7 +1,6 @@
 import { Component } from '@nestjs/common';
 
-import { Env } from '../_core/env';
-import { Http } from '../_core/http';
+import { Env, Http } from '../_core';
 import { User } from '../user';
 import { GithubAuthDto } from './auth.dto';
 import { IGithubUser } from './helpers/IGithubUser';

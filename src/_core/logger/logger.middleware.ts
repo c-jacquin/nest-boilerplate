@@ -4,9 +4,9 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 import * as uuid from 'uuid';
 
-import { Context } from '../context/context.component';
-import { Env } from '../env/env.component';
-import { Logger } from '../logger/logger.component';
+import { Context } from '../context';
+import { Env } from '../env';
+import { Logger } from '../logger';
 
 @Middleware()
 export class LoggerMiddleware implements NestMiddleware {

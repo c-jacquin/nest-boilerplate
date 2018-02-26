@@ -26,7 +26,7 @@ export class I18n extends Polyglot {
       this.locale() !== locale
     ) {
       this.locale(locale);
-      this.ctx.locale = locale;
+      this.ctx.store.set('locale', locale);
 
       this.extend(I18n.messages[locale]);
     }

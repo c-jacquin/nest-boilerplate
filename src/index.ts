@@ -1,18 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as yenv from 'yenv';
 
-import { CoreModule } from './_core';
-import { BadRequestFilter, NotFoundFilter } from './_core/error';
+import {
+  BadRequestFilter,
+  Env,
+  ExceptionModule,
+  NotFoundFilter,
+} from './_core';
 import { ApplicationModule } from './app.module';
 
 (async env => {
   const app = await NestFactory.create(ApplicationModule);
-  const coreModule = app.select(CoreModule);
+  const exceptionModule = app.select(ExceptionModule);
 
   app.useGlobalFilters(
-    coreModule.get(BadRequestFilter),
-    coreModule.get(NotFoundFilter),
+    exceptionModule.get(BadRequestFilter),
+    exceptionModule.get(NotFoundFilter),
   );
 
   const options = new DocumentBuilder()
@@ -26,4 +29,4 @@ import { ApplicationModule } from './app.module';
   SwaggerModule.setup('/swagger', app, document);
 
   await app.listen(env.PORT);
-})(yenv());
+})(new Env());

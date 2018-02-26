@@ -2,7 +2,7 @@ import { Component } from '@nestjs/common';
 import autobind from 'autobind-decorator';
 import * as axios from 'axios';
 
-import { Logger } from '../logger/logger.component';
+import { Logger } from '../logger';
 
 @Component()
 export class Http {

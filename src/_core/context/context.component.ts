@@ -2,7 +2,7 @@ import { Component } from '@nestjs/common';
 import { createNamespace, getNamespace } from 'cls-hooked';
 import * as yenv from 'yenv';
 
-import { Env } from '../env/env.component';
+import { Env } from '../env';
 
 export enum ContextTypes {
   LOCALE = 'locale',
@@ -20,34 +20,34 @@ export class Context {
   }
 
   public set locale(locale: string) {
-    this.context.set(ContextTypes.LOCALE, locale);
+    this.store.set(ContextTypes.LOCALE, locale);
   }
 
   public get locale() {
-    return this.context.get(ContextTypes.LOCALE);
+    return this.store.get(ContextTypes.LOCALE);
   }
 
   public set request(request) {
-    this.context.set(ContextTypes.REQUEST, request);
+    this.store.set(ContextTypes.REQUEST, request);
   }
 
   public get request() {
-    return this.context.get(ContextTypes.REQUEST);
+    return this.store.get(ContextTypes.REQUEST);
   }
 
   public get response() {
-    return this.context.get(ContextTypes.RESPONSE);
+    return this.store.get(ContextTypes.RESPONSE);
   }
 
   public set response(response) {
-    this.context.set(ContextTypes.RESPONSE, response);
+    this.store.set(ContextTypes.RESPONSE, response);
   }
 
   public get requestId() {
     return this.request.id;
   }
 
-  public get context() {
+  public get store() {
     return getNamespace(ContextTypes.ROOT);
   }
 }

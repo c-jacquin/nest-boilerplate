@@ -1,21 +1,17 @@
 import { Component } from '@nestjs/common';
 
+const getSet = {
+  get: () => ({}),
+  set: () => ({}),
+};
+
 @Component()
 export class Context {
-  private $locale: string;
   private $requestId: string;
+  private store = getSet;
+
   public create(cb) {
-    cb({
-      set: () => ({}),
-    });
-  }
-
-  public set locale(locale: string) {
-    this.$locale = locale;
-  }
-
-  public get locale() {
-    return this.$locale;
+    cb(getSet);
   }
 
   public set requestId(requestId: string) {

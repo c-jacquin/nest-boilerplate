@@ -6,10 +6,9 @@ import { suite, test } from 'mocha-typescript';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 
-import { ApplicationModule } from '../../../app.module';
-import { CoreModule } from '../../core.module';
+// import { ApplicationModule } from '../../../app.module';
 import { DatabaseModule, DatabaseService } from '../../database';
-import { I18n } from '../i18n.component';
+import { I18n, I18nModule } from '../index';
 
 @suite('e2e i18n filter')
 class I18nFilterE2E {
@@ -43,14 +42,14 @@ class I18nFilterE2E {
 
   private async setupModule() {
     const module = await Test.createTestingModule({
-      imports: [ApplicationModule],
+      imports: [I18nModule, DatabaseModule],
     }).compile();
 
     this.databaseService = module
       .select(DatabaseModule)
       .get<DatabaseService>(DatabaseService);
 
-    this.i18n = module.select(CoreModule).get<I18n>(I18n);
+    this.i18n = module.select(I18nModule).get<I18n>(I18n);
 
     this.app = module.createNestApplication(this.server);
     this.app.init();
