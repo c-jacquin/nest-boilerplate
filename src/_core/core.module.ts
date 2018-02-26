@@ -26,7 +26,12 @@ const moduleComponents = [
 export class CoreModule implements NestModule {
   public configure(consumer: MiddlewaresConsumer): void {
     consumer.apply(ContextMiddleware).forRoutes({ path: '*' });
-    consumer.apply(LoggerMiddleware).forRoutes({ path: '*' });
     consumer.apply(I18nMiddleware).forRoutes({ path: '*' });
+    if (
+      process.env.NODE_ENV === 'local' ||
+      process.env.NODE_ENV === 'staging'
+    ) {
+      consumer.apply(LoggerMiddleware).forRoutes({ path: '*' });
+    }
   }
 }
