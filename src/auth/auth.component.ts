@@ -5,8 +5,8 @@ import { User } from '../user';
 import { GithubAuthDto } from './auth.dto';
 import { IGithubUser } from './helpers/IGithubUser';
 
-interface IAuthResponse<U> {
-  user: U;
+interface IAuthResponse {
+  user: User;
   token: string;
 }
 
@@ -17,7 +17,7 @@ export class AuthService {
   public async github({
     clientId,
     code,
-  }: GithubAuthDto): Promise<IAuthResponse<IGithubUser>> {
+  }: GithubAuthDto): Promise<IAuthResponse> {
     try {
       const result = await this.http.post(this.env.GITHUB_TOKEN_URI, {
         accept: 'json',
@@ -27,17 +27,14 @@ export class AuthService {
       });
       const token = result.data.split('=')[1].split('&')[0];
 
-      const { data: user } = await this.http.get(
-        this.env.GITHUB_API + '/user',
-        {
-          headers: {
-            Accept: 'application/vnd.github.v3+json',
-            Authorization: `token ${token}`,
-          },
+      const { data } = await this.http.get(this.env.GITHUB_API + '/user', {
+        headers: {
+          Accept: 'application/vnd.github.v3+json',
+          Authorization: `token ${token}`,
         },
-      );
+      });
 
-      return { user, token };
+      return { user: data, token };
     } catch (err) {
       throw new InternalServerErrorException(
         this.i18n.translate('error.internal.github'),

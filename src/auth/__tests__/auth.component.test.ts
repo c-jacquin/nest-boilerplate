@@ -14,6 +14,8 @@ class AuthComponentUnit {
   private authService: AuthService;
 
   public async before() {
+    Http.prototype.get = () => Promise.resolve({ data: {} });
+
     const module = await Test.createTestingModule({
       components: [AuthService, Env, Http, I18n, Context],
     }).compile();
@@ -22,7 +24,7 @@ class AuthComponentUnit {
     this.authService = module.get<AuthService>(AuthService);
   }
 
-  @test('github method should call the post method of http twice')
+  @test('github method should call the post and get method of http service')
   public async github() {
     const postSpy = sinon.spy(this.http, 'post');
     const getSpy = sinon.spy(this.http, 'get');

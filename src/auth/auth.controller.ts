@@ -1,6 +1,13 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseFilters,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 
+import { InternalErrorFilter } from '../_core';
 import { UserService } from '../user';
 import { AuthService } from './auth.component';
 import { GithubAuthDto } from './auth.dto';

@@ -1,9 +1,9 @@
 {
   "error": {
     "badRequest": "The property %{property}, %{constraint}.",
+    "database": "The database is not available for the moment, please try again later",
     "notFound": "The requested resource doesn't exist.",
     "internal": {
-      "database": "The database is not available for the moment, please try again later",
       "github": "The github api is not available for the moment, please try again later"
     }
   },

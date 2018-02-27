@@ -3,6 +3,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import {
   BadRequestFilter,
+  DatabaseFilter,
+  DatabaseModule,
   Env,
   ExceptionModule,
   InternalErrorFilter,
@@ -14,11 +16,13 @@ import { ApplicationModule } from './app.module';
 (async env => {
   const app = await NestFactory.create(ApplicationModule);
   const exceptionModule = app.select(ExceptionModule);
+  const databaseModule = app.select(DatabaseModule);
 
   app.useGlobalFilters(
     exceptionModule.get(BadRequestFilter),
     exceptionModule.get(InternalErrorFilter),
     exceptionModule.get(NotFoundFilter),
+    databaseModule.get(DatabaseFilter),
   );
 
   const options = new DocumentBuilder()

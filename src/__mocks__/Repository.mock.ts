@@ -6,6 +6,10 @@ export class Repository {
     return Promise.resolve({});
   }
 
+  public findOneById() {
+    return Promise.resolve({});
+  }
+
   public save() {
     return Promise.resolve({});
   }

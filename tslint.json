@@ -8,6 +8,7 @@
     "rules": {
         "no-submodule-imports": false,
         "no-implicit-dependencies": false,
-        "prettier": true
+        "prettier": true,
+        "variable-name": false
     }
 }

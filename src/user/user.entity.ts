@@ -19,14 +19,14 @@ export class User {
     };
   }
 
-  @ObjectIdColumn() public id?: ObjectID;
+  @ObjectIdColumn() public _id?: ObjectID;
 
-  @Column() public avatar: string;
+  @Column() public avatar?: string;
 
-  @Column() public email: string;
+  @Column() public email?: string;
 
   @Column({ unique: true })
-  public login: string;
+  public login?: string;
 
-  @Column() public name: string;
+  @Column() public name?: string;
 }
