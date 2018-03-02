@@ -8,6 +8,8 @@
     }
   },
   "validation": {
+    "isArrayOfKeysJSON": "ne contient pas de valeur valide",
+    "isIntanceOfJSON": "est invalide",
     "isString": "doit etre de type string"
   }
 }

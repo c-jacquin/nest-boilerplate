@@ -33,7 +33,7 @@ import { ApplicationModule } from './app.module';
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('/swagger', app, document);
+  SwaggerModule.setup('/docs', app, document);
 
   await app.listen(env.PORT);
 })(new Env());

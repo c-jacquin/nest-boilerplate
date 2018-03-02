@@ -3,7 +3,6 @@ import { Component, InternalServerErrorException } from '@nestjs/common';
 import { Env, Http, I18n } from '../_core';
 import { User } from '../user';
 import { GithubAuthDto } from './auth.dto';
-import { IGithubUser } from './helpers/IGithubUser';
 
 interface IAuthResponse {
   user: User;
@@ -34,7 +33,15 @@ export class AuthService {
         },
       });
 
-      return { user: data, token };
+      return {
+        token,
+        user: {
+          avatar: data.avatar_url,
+          email: data.email,
+          login: data.login,
+          name: data.name,
+        },
+      };
     } catch (err) {
       throw new InternalServerErrorException(
         this.i18n.translate('error.internal.github'),

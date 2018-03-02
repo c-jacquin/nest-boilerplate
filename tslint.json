@@ -6,9 +6,10 @@
     ],
     "rulesDirectory": ["tslint-plugin-prettier"],
     "rules": {
-        "no-submodule-imports": false,
-        "no-implicit-dependencies": false,
-        "prettier": true,
-        "variable-name": false
+      "interface-name": false,
+      "no-submodule-imports": false,
+      "no-implicit-dependencies": false,
+      "prettier": true,
+      "variable-name": false
     }
 }

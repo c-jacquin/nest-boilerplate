@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DatabaseModule, EnvModule, HttpModule, I18nModule } from '../_core';
-
 import { UserService } from './user.component';
 import { UserController } from './user.controller';
 import { User } from './user.entity';

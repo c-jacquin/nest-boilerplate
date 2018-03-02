@@ -1,3 +1,5 @@
+import { ApiModelProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
 import {
   Column,
   Entity,
@@ -6,27 +8,34 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 
-import { IGithubUser } from '../auth/helpers/IGithubUser';
-
 @Entity()
 export class User {
-  public static fromGithub(user: IGithubUser) {
-    return {
-      avatar: user.avatar_url,
-      email: user.email,
-      login: user.login,
-      name: user.name,
-    };
-  }
-
   @ObjectIdColumn() public _id?: ObjectID;
 
-  @Column() public avatar?: string;
+  @Column()
+  @IsString()
+  @ApiModelProperty({
+    description: "the uri of the user's avatar",
+    type: String,
+  })
+  public avatar?: string;
 
-  @Column() public email?: string;
+  @Column()
+  @IsString()
+  @ApiModelProperty({
+    description: 'the email of the user',
+    type: String,
+  })
+  public email?: string;
+
+  @Column()
+  @IsString()
+  @ApiModelProperty({
+    description: 'the name of the user',
+    type: String,
+  })
+  public name?: string;
 
   @Column({ unique: true })
   public login?: string;
-
-  @Column() public name?: string;
 }

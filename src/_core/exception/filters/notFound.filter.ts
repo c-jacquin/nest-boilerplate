@@ -1,6 +1,6 @@
 import { Catch, ExceptionFilter, NotFoundException } from '@nestjs/common';
 
-import { I18n } from '../i18n';
+import { I18n } from '../../i18n';
 
 @Catch(NotFoundException)
 export class NotFoundFilter implements ExceptionFilter {

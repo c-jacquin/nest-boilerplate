@@ -5,6 +5,7 @@ import {
   FindOneAndReplaceOption,
   FindOneOptions,
   MongoRepository,
+  ObjectID,
   ObjectLiteral,
   RemoveOptions,
   SaveOptions,
@@ -55,19 +56,19 @@ export class UserService {
     }
   }
 
-  public async findOrCreate(data: DeepPartial<User> | IGithubUser) {
+  public async findOrCreate(data: Partial<User>) {
     let user = await this.findOne({
       where: {
         login: data.login,
       },
     });
     if (!user) {
-      user = await this.create(User.fromGithub(data as IGithubUser));
+      user = await this.create(data);
     }
     return user;
   }
 
-  public async remove(id: string, options?: any) {
+  public async remove(id: ObjectID | string, options?: any) {
     try {
       const user = await this.findOneById(id);
 

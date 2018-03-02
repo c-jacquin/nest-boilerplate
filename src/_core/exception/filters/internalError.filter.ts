@@ -4,8 +4,8 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import { I18n } from '../i18n';
-import { Logger } from '../logger';
+import { I18n } from '../../i18n';
+import { Logger } from '../../logger';
 
 @Catch(InternalServerErrorException)
 export class InternalErrorFilter implements ExceptionFilter {

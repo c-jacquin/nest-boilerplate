@@ -14,10 +14,13 @@ export class ValidationPipe implements PipeTransform<any> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
-    const object = plainToClass(metatype, value);
+    const object: any = plainToClass(metatype, value);
     const errors = await validate(object);
     if (errors.length > 0) {
-      throw new BadRequestException(null, JSON.stringify(errors));
+      throw new BadRequestException({
+        constraint: `validation.${Object.keys(errors[0].constraints)[0]}`,
+        property: errors[0].property,
+      });
     }
     return value;
   }

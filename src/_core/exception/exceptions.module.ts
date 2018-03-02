@@ -3,10 +3,12 @@ import { Module } from '@nestjs/common';
 import { I18nModule } from '../i18n';
 import { LoggerModule } from '../logger';
 
-import { BadRequestFilter } from './badRequest.filter';
-import { InternalErrorFilter } from './internalError.filter';
-import { NotFoundFilter } from './notFound.filter';
-import { ValidationPipe } from './validation.pipe';
+import {
+  BadRequestFilter,
+  InternalErrorFilter,
+  NotFoundFilter,
+} from './filters';
+import { ValidationPipe } from './pipes';
 
 @Module({
   components: [
@@ -15,7 +17,12 @@ import { ValidationPipe } from './validation.pipe';
     NotFoundFilter,
     ValidationPipe,
   ],
-  exports: [BadRequestFilter, NotFoundFilter],
+  exports: [
+    BadRequestFilter,
+    InternalErrorFilter,
+    NotFoundFilter,
+    ValidationPipe,
+  ],
   imports: [I18nModule, LoggerModule],
 })
 export class ExceptionModule {}

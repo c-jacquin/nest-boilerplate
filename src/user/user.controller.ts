@@ -7,21 +7,27 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Response,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { Response as ExpressResponse } from 'express';
 import { ObjectID } from 'mongodb';
 
-import { I18n } from '../_core';
+import {
+  FindManyQuery,
+  FindOneQuery,
+  FindQueryPipe,
+  ObjectIDPipe,
+  ValidationPipe,
+} from '../_core';
 import { UserService } from './user.component';
-import { UserDto } from './user.dto';
+import { User } from './user.entity';
 
 @Controller('user')
 @ApiUseTags('user')
 export class UserController {
-  constructor(private userService: UserService, private i18n: I18n) {}
+  constructor(private userService: UserService) {}
 
   @Post()
   @ApiResponse({
@@ -35,7 +41,7 @@ export class UserController {
   })
   public async create(
     @Body(new ValidationPipe())
-    body: UserDto,
+    body: User,
   ) {
     return this.userService.create(body);
   }
@@ -45,8 +51,20 @@ export class UserController {
     description: 'The users have been retrieved',
     status: 200,
   })
-  public async find() {
-    return this.userService.find();
+  public async find(
+    @Query(new FindQueryPipe(), new ValidationPipe())
+    query: FindManyQuery<User>,
+  ) {
+    const { order, orderBy, ...otherOptions } = query;
+    const options: any = otherOptions;
+
+    if (order && orderBy) {
+      options.order = {
+        [orderBy]: order,
+      };
+    }
+
+    return this.userService.find(options);
   }
 
   @Get(':id')
@@ -59,10 +77,13 @@ export class UserController {
     status: 204,
   })
   public async findOne(
-    @Param('id') id: string,
+    @Param('id', new ObjectIDPipe())
+    id: string,
+    @Query(new FindQueryPipe(), new ValidationPipe())
+    query: FindOneQuery<User>,
     @Response() res: ExpressResponse,
   ) {
-    const user = await this.userService.findOneById(id);
+    const user = await this.userService.findOneById(id, query);
 
     if (!user) {
       res.status(HttpStatus.NO_CONTENT).json();
@@ -81,10 +102,12 @@ export class UserController {
     status: 204,
   })
   public async remove(
-    @Param('id') id: string,
+    @Param('id', new ObjectIDPipe())
+    id: string,
     @Response() res: ExpressResponse,
   ) {
     const value = await this.userService.remove(id);
+
     if (value) {
       res.json();
     } else {
@@ -107,12 +130,14 @@ export class UserController {
     status: 400,
   })
   public async update(
-    @Param('id') id: string,
+    @Param('id', new ObjectIDPipe())
+    id: string,
     @Response() res: ExpressResponse,
     @Body(new ValidationPipe())
-    userDto: UserDto,
+    user: User,
   ) {
-    const value = await this.userService.update({ _id: ObjectID(id) }, userDto);
+    const value = await this.userService.update({ _id: ObjectID(id) }, user);
+
     if (value) {
       res.json();
     } else {
