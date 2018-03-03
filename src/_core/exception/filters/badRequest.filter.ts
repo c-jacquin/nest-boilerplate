@@ -19,7 +19,7 @@ export class BadRequestFilter implements ExceptionFilter {
 
     response.status(statusCode).json({
       message: this.i18n.translate('error.badRequest', {
-        constraint: this.i18n.translate(message.constraint),
+        constraint: this.i18n.translate(`validation.${message.constraint}`),
         property: message.property,
       }),
       statusCode,

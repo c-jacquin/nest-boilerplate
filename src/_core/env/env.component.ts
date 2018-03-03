@@ -19,6 +19,7 @@ export class Env {
   public LOG_LEVEL: string;
   public NODE_ENV: string;
   public PORT: number;
+  public SUPPORTED_LANGUAGES: string[];
   public TYPEORM_CONNECTION: 'mongodb';
   public TYPEORM_ENTITIES: string;
   public TYPEORM_LOGGING: boolean;

@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 
-import { DatabaseException, I18n } from '../_core';
+import { DatabaseException } from '../_core';
 import { IGithubUser } from '../auth/helpers/IGithubUser';
 import { User } from './user.entity';
 
@@ -21,7 +21,6 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>,
-    private i18n: I18n,
   ) {}
 
   public async create(entity: User, options?: SaveOptions) {

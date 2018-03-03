@@ -1,0 +1,10 @@
+{
+  "error": {
+    "badRequest": "La propriete %{property} %{constraint}.",
+    "notFound": "La resource que vous demandez n'existe pas."
+  },
+  "validation": {
+    "isString": "doit etre de type string",
+    "isNumber": "doit etre un nombre"
+  }
+}

@@ -29,6 +29,8 @@
     "class-validator": "^0.8.1",
     "clf-date": "^0.1.0",
     "cls-hooked": "^4.2.2",
+    "deepmerge": "^2.0.1",
+    "glob": "^7.1.2",
     "js-meter": "^1.1.2",
     "mongodb": "^2.2.33",
     "node-polyglot": "^2.2.2",
