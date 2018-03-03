@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 
 import {
   ContextModule,
+  CronModule,
   DatabaseModule,
   EnvModule,
   ExceptionModule,
@@ -17,6 +18,7 @@ import { UserModule } from './user';
   imports: [
     AuthModule,
     ContextModule,
+    CronModule,
     DatabaseModule,
     EnvModule,
     ExceptionModule,
