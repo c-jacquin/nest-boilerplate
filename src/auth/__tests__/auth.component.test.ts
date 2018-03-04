@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
 import * as sinon from 'sinon';
 
-import { Context, I18n } from '../../_core';
+import { Context, I18n, i18nFactory } from '../../_core';
 import { Env } from '../../_core/env';
 import { Http } from '../../_core/http/__mocks__/http.component.mock';
 import { AuthService } from '../auth.component';
@@ -17,7 +17,7 @@ class AuthComponentUnit {
     Http.prototype.get = () => Promise.resolve({ data: {} });
 
     const module = await Test.createTestingModule({
-      components: [AuthService, Env, Http, I18n, Context],
+      components: [AuthService, Env, Http, i18nFactory, Context],
     }).compile();
 
     this.http = module.get<Http>(Http);

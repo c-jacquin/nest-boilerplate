@@ -3,6 +3,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
+  Inject,
 } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 import { Response } from 'express';
@@ -11,7 +12,7 @@ import { I18n } from '../../i18n';
 
 @Catch(BadRequestException)
 export class BadRequestFilter implements ExceptionFilter {
-  constructor(private i18n: I18n) {}
+  constructor(@Inject('I18n') private i18n: I18n) {}
 
   public catch(exception: HttpException, response: Response) {
     const statusCode = exception.getStatus();

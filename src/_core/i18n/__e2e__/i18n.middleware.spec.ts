@@ -10,7 +10,7 @@ import * as request from 'supertest';
 import { DatabaseModule, DatabaseService } from '../../database';
 import { I18n, I18nModule } from '../index';
 
-@suite('e2e i18n filter')
+@suite('e2e i18n middleware')
 class I18nFilterE2E {
   private app: any;
   private databaseService: DatabaseService;
@@ -49,7 +49,7 @@ class I18nFilterE2E {
       .select(DatabaseModule)
       .get<DatabaseService>(DatabaseService);
 
-    this.i18n = module.select(I18nModule).get<I18n>(I18n);
+    this.i18n = module.select(I18nModule).get<I18n>('I18n');
 
     this.app = module.createNestApplication(this.server);
     this.app.init();

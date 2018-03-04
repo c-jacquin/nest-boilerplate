@@ -1,4 +1,8 @@
-import { Component, InternalServerErrorException } from '@nestjs/common';
+import {
+  Component,
+  Inject,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 import { Env, Http, I18n } from '../_core';
 import { User } from '../user';
@@ -11,7 +15,11 @@ interface IAuthResponse {
 
 @Component()
 export class AuthService {
-  constructor(private env: Env, private http: Http, private i18n: I18n) {}
+  constructor(
+    private env: Env,
+    private http: Http,
+    @Inject('I18n') private i18n: I18n,
+  ) {}
 
   public async github({
     clientId,

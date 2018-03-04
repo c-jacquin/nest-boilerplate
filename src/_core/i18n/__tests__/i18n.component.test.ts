@@ -6,7 +6,8 @@ import * as sinon from 'sinon';
 
 import { Context } from '../../context/__mocks__/context.component.mock';
 import { Env } from '../../env';
-import { I18n } from '../i18n.component';
+import { i18nFactory } from '../i18n.factory';
+import { I18n } from '../interfaces/I18n';
 
 @suite('unit I18n component')
 class I18nComponentUnit {
@@ -39,9 +40,9 @@ class I18nComponentUnit {
 
   private async setupModule() {
     const module = await Test.createTestingModule({
-      components: [Context, Env, I18n],
+      components: [Context, Env, i18nFactory],
     }).compile();
 
-    this.i18n = module.get<I18n>(I18n);
+    this.i18n = module.get<I18n>('I18n');
   }
 }

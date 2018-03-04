@@ -1,6 +1,7 @@
 import {
   Catch,
   ExceptionFilter,
+  Inject,
   InternalServerErrorException,
 } from '@nestjs/common';
 
@@ -9,7 +10,7 @@ import { Logger } from '../../logger';
 
 @Catch(InternalServerErrorException)
 export class InternalErrorFilter implements ExceptionFilter {
-  constructor(private i18n: I18n, private logger: Logger) {}
+  constructor(@Inject('I18n') private i18n: I18n, private logger: Logger) {}
 
   public catch(exception: InternalServerErrorException, response) {
     const statusCode = exception.getStatus();

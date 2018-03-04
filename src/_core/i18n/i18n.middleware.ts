@@ -1,10 +1,15 @@
-import { ExpressMiddleware, Middleware, NestMiddleware } from '@nestjs/common';
+import {
+  ExpressMiddleware,
+  Inject,
+  Middleware,
+  NestMiddleware,
+} from '@nestjs/common';
 
-import { I18n } from './i18n.component';
+import { I18n } from './interfaces/I18n';
 
 @Middleware()
 export class I18nMiddleware implements NestMiddleware {
-  constructor(private i18n: I18n) {}
+  constructor(@Inject('I18n') private i18n: I18n) {}
 
   public resolve(...args: any[]): ExpressMiddleware {
     return (req, res, next) => {
