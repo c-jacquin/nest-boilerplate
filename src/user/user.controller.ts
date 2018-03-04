@@ -132,9 +132,9 @@ export class UserController {
   public async update(
     @Param('id', new ObjectIDPipe())
     id: string,
-    @Response() res: ExpressResponse,
     @Body(new ValidationPipe())
     user: User,
+    @Response() res: ExpressResponse,
   ) {
     const value = await this.userService.update({ _id: ObjectID(id) }, user);
 

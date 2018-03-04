@@ -25,7 +25,7 @@ export class FindManyQuery<Entity> extends FindOneQuery<Entity> {
     required: false,
     type: String,
   })
-  public readonly order: 'ASC' | 'DESC';
+  public readonly order?: 'ASC' | 'DESC';
 
   @IsNumber()
   @IsOptional()

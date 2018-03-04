@@ -19,7 +19,7 @@ class UserServiceUnit {
   @test('findOrCreate method should call the findOne method of user repository')
   public async findOrCreate() {
     const spy = sinon.spy(this.userRepository, 'findOne');
-    await this.userService.findOrCreate({ login: 'test', id: 3 });
+    await this.userService.findOrCreate({ login: 'test' });
     expect(spy.called).to.equal(true);
   }
 
@@ -30,7 +30,7 @@ class UserServiceUnit {
     Repository.prototype.findOne = () => Promise.resolve(undefined);
     await this.setupModule();
     const spy = sinon.spy(this.userRepository, 'save');
-    await this.userService.findOrCreate({ login: 'test', id: 3 });
+    await this.userService.findOrCreate({ login: 'test' });
     expect(spy.called).to.equal(true);
   }
 
