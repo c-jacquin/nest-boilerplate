@@ -6,10 +6,9 @@ import { suite, test } from 'mocha-typescript';
 import * as sinon from 'sinon';
 import * as request from 'supertest';
 
-// import { ApplicationModule } from '../../../app.module';
-import { DatabaseModule, DatabaseService } from '../../../database';
-import { CommonModule } from '../../index';
-import { I18n } from '../index';
+import { ApplicationModule } from '../../app.module';
+import { CommonModule, I18n } from '../../common';
+import { DatabaseModule, DatabaseService } from '../../database';
 
 @suite('e2e i18n middleware')
 class I18nFilterE2E {
@@ -43,7 +42,7 @@ class I18nFilterE2E {
 
   private async setupModule() {
     const module = await Test.createTestingModule({
-      imports: [CommonModule, DatabaseModule],
+      imports: [ApplicationModule],
     }).compile();
 
     this.databaseService = module

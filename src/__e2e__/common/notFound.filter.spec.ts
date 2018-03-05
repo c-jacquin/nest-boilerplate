@@ -5,8 +5,8 @@ import * as express from 'express';
 import { suite, test } from 'mocha-typescript';
 import * as request from 'supertest';
 
-import { DatabaseModule, DatabaseService } from '../../../database';
-import { CommonModule } from '../../index';
+import { ApplicationModule } from '../../app.module';
+import { DatabaseModule, DatabaseService } from '../../database';
 
 @suite('e2e notFound filter')
 class NotFoundFilterE2E {
@@ -33,7 +33,7 @@ class NotFoundFilterE2E {
 
   private async setupModule() {
     const module = await Test.createTestingModule({
-      imports: [CommonModule, DatabaseModule],
+      imports: [ApplicationModule],
     }).compile();
 
     this.databaseService = module
