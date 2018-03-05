@@ -1,7 +1,6 @@
 import { Component } from '@nestjs/common';
 
 import { GithubAuthDto } from '../auth.dto';
-import { IGithubUser } from '../helpers/IGithubUser';
 
 interface IAuthResponse<U> {
   user: U;
