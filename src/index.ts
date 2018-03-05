@@ -1,27 +1,25 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+import { ApplicationModule } from './app.module';
 import {
   BadRequestFilter,
-  DatabaseFilter,
-  DatabaseModule,
+  CommonModule,
   Env,
-  ExceptionModule,
   InternalErrorFilter,
-  LoggerModule,
   NotFoundFilter,
-} from './_core';
-import { ApplicationModule } from './app.module';
+} from './common';
+import { DatabaseFilter, DatabaseModule } from './database';
 
 (async env => {
   const app = await NestFactory.create(ApplicationModule);
-  const exceptionModule = app.select(ExceptionModule);
+  const commonModule = app.select(CommonModule);
   const databaseModule = app.select(DatabaseModule);
 
   app.useGlobalFilters(
-    exceptionModule.get(BadRequestFilter),
-    exceptionModule.get(InternalErrorFilter),
-    exceptionModule.get(NotFoundFilter),
+    commonModule.get(BadRequestFilter),
+    commonModule.get(InternalErrorFilter),
+    commonModule.get(NotFoundFilter),
     databaseModule.get(DatabaseFilter),
   );
 

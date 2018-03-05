@@ -6,7 +6,7 @@ import * as nock from 'nock';
 import * as request from 'supertest';
 import { Connection } from 'typeorm';
 
-import { DatabaseModule, DatabaseService } from '../../_core/database';
+import { DatabaseModule, DatabaseService } from '../../database';
 import { AuthModule } from '../auth.module';
 
 @suite('e2e /auth/github fail')

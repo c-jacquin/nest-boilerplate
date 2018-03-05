@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import { Env, Http, I18n } from '../_core';
+import { Env, Http, I18n } from '../common';
 import { User } from '../user';
 import { GithubAuthDto } from './auth.dto';
 

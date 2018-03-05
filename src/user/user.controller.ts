@@ -14,13 +14,13 @@ import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { Response as ExpressResponse } from 'express';
 import { ObjectID } from 'mongodb';
 
+import { ValidationPipe } from '../common';
 import {
   FindManyQuery,
   FindOneQuery,
   FindQueryPipe,
   ObjectIDPipe,
-  ValidationPipe,
-} from '../_core';
+} from '../database';
 import { UserService } from './user.component';
 import { User } from './user.entity';
 

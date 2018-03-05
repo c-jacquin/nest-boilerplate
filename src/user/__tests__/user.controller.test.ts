@@ -4,7 +4,6 @@ import { suite, test } from 'mocha-typescript';
 import * as ExpressResponse from 'mock-express-response';
 import * as sinon from 'sinon';
 
-import { I18nModule } from '../../_core';
 import { UserService } from '../__mocks__/user.component.mock';
 import { UserController } from '../user.controller';
 

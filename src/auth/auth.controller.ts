@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 
-import { InternalErrorFilter } from '../_core';
+import { InternalErrorFilter } from '../common';
 import { UserService } from '../user';
 import { AuthService } from './auth.component';
 import { GithubAuthDto } from './auth.dto';

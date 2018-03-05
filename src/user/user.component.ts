@@ -12,8 +12,7 @@ import {
 } from 'typeorm';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 
-import { DatabaseException } from '../_core';
-import { IGithubUser } from '../auth/helpers/IGithubUser';
+import { DatabaseException } from '../database';
 import { User } from './user.entity';
 
 @Component()
