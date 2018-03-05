@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import {
   Column,
   Entity,
@@ -14,6 +14,7 @@ export class User {
 
   @Column()
   @IsString()
+  @IsOptional()
   @ApiModelProperty({
     description: "the uri of the user's avatar",
     type: String,
@@ -22,6 +23,7 @@ export class User {
 
   @Column()
   @IsString()
+  @IsOptional()
   @ApiModelProperty({
     description: 'the email of the user',
     type: String,
@@ -30,6 +32,7 @@ export class User {
 
   @Column()
   @IsString()
+  @IsOptional()
   @ApiModelProperty({
     description: 'the name of the user',
     type: String,
