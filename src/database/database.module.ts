@@ -15,11 +15,15 @@ const env = new Env();
   imports: [
     CommonModule,
     TypeOrmModule.forRoot({
+      database: env.TYPEORM_DATABASE,
       entities: [path.join(process.cwd(), env.TYPEORM_ENTITIES)],
+      host: env.TYPEORM_HOST,
       logging: env.TYPEORM_LOGGING,
+      password: env.TYPEORM_PASSWORD,
+      port: env.TYPEORM_PORT,
       synchronize: env.TYPEORM_SYNCHRONIZE,
       type: env.TYPEORM_CONNECTION,
-      url: env.TYPEORM_URL,
+      username: env.TYPEORM_USERNAME,
     }),
   ],
 })
