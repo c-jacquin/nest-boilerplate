@@ -43,8 +43,7 @@ class AuthGithubE2E {
       })
       .expect(201);
 
-    expect(response.body.token).to.equal(this.token);
-    expect(response.body.user.login).to.equal(this.user.login);
+    expect(response.body.providerToken).to.equal(this.token);
 
     this.oauthScope.done();
     this.userScope.done();

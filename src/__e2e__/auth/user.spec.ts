@@ -50,17 +50,17 @@ class UserApiE2E {
       .get('/user')
       .expect(200);
 
-    expect(response.body.length).to.equal(1);
+    expect(Array.isArray(response.body));
   }
 
   @test('should return a given user')
   public async findOne() {
-    const { body: { _id } } = await request(this.server)
+    const { body: { id } } = await request(this.server)
       .post('/user')
       .send(this.user);
 
     const response = await request(this.server)
-      .get(`/user/${_id}`)
+      .get(`/user/${id}`)
       .expect(200);
 
     expect(response.body).to.contain(this.user);
@@ -68,24 +68,24 @@ class UserApiE2E {
 
   @test('should remove a given user')
   public async remove() {
-    const { body: { _id } } = await request(this.server)
+    const { body: { id } } = await request(this.server)
       .post('/user')
       .send(this.user);
 
     const response = await request(this.server)
-      .delete(`/user/${_id}`)
+      .delete(`/user/${id}`)
       .expect(200);
   }
 
   @test('should update a given user')
   public async update() {
     const newName = 'foo';
-    const { body: { _id } } = await request(this.server)
+    const { body: { id } } = await request(this.server)
       .post('/user')
       .send(this.user);
 
     const response = await request(this.server)
-      .put(`/user/${_id}`)
+      .put(`/user/${id}`)
       .send({
         avatar: newName,
       })

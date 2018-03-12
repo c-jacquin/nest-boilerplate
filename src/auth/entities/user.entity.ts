@@ -3,14 +3,16 @@ import { IsOptional, IsString } from 'class-validator';
 import {
   Column,
   Entity,
-  ObjectID,
-  ObjectIdColumn,
+  OneToMany,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Account } from './account.entity';
 
 @Entity()
 export class User {
-  @ObjectIdColumn() public _id?: ObjectID;
+  @PrimaryGeneratedColumn() public id?: number;
 
   @Column()
   @IsString()
@@ -39,6 +41,9 @@ export class User {
   })
   public name?: string;
 
-  @Column({ unique: true })
-  public login?: string;
+  @OneToMany(type => Account, account => account.user, {
+    cascadeInsert: true,
+    cascadeUpdate: true,
+  })
+  public accounts?: Account[];
 }

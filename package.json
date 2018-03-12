@@ -25,6 +25,7 @@
     "@nestjs/websockets": "^4.5.8",
     "autobind-decorator": "^2.1.0",
     "axios": "^0.18.0",
+    "bcrypt": "^1.0.3",
     "class-transformer": "^0.1.9",
     "class-validator": "^0.8.1",
     "clf-date": "^0.1.0",
@@ -33,10 +34,12 @@
     "deepmerge": "^2.0.1",
     "glob": "^7.1.2",
     "js-meter": "^1.1.2",
+    "jsonwebtoken": "^8.2.0",
     "mongodb": "^2.2.33",
     "mysql": "^2.15.0",
     "node-polyglot": "^2.2.2",
     "on-headers": "^1.0.1",
+    "rand-token": "^0.4.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^5.5.6",
     "typeorm": "^0.1.12",
@@ -46,6 +49,7 @@
     "yenv": "^2.1.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^1.0.0",
     "@types/chai": "^4.1.2",
     "@types/mocha": "^2.2.48",
     "@types/mock-require": "^2.0.0",

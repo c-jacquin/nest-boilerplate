@@ -1,43 +1,97 @@
 import {
   Body,
   Controller,
+  Inject,
   Post,
+  UnauthorizedException,
   UseFilters,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { InternalErrorFilter } from '../common';
-import { UserService } from '../user';
-import { AuthService } from './auth.component';
-import { GithubAuthDto } from './auth.dto';
+import { RefreshTokenDto, SigninDto, SignupDto } from './dto';
+import { Account } from './entities/account.entity';
+import { User } from './entities/user.entity';
+import { PasswordService } from './services/password.component';
+import { TokenService } from './services/token.component';
 
 @Controller('auth')
 @ApiUseTags('auth')
 export class AuthController {
   constructor(
-    private authService: AuthService,
-    private userService: UserService,
+    @InjectRepository(Account) private accountRepository: Repository<Account>,
+    private passwordService: PasswordService,
+    @Inject('UserRepository') private userRepository: Repository<User>,
+    private tokenService: TokenService,
   ) {}
 
-  @Post('github')
-  @ApiResponse({
-    description:
-      'The user is authenticated via github oAuth2, a record is persisted and the githud and the record are send back to the client',
-    status: 201,
-  })
-  @ApiResponse({
-    description:
-      "One of the property of the body didn't pass the validation, error details on the message",
-    status: 400,
-  })
-  public async githubAuth(
+  @Post('signin')
+  public async signin(
     @Body(new ValidationPipe())
-    body: GithubAuthDto,
+    body: SigninDto,
   ) {
-    const { user: githubUser, token } = await this.authService.github(body);
-    const user = await this.userService.findOrCreate(githubUser);
+    const account = await this.passwordService.authenticateAccount(
+      body.login,
+      body.password,
+    );
+    const refreshToken = this.tokenService.createRefreshToken();
+    await this.accountRepository.update({ id: account.id }, { refreshToken });
+    const accessToken = await this.tokenService.createAccessToken({
+      ...account,
+      refreshToken,
+    });
 
-    return { user, token };
+    return {
+      accessToken,
+      refreshToken,
+      user: account.user,
+    };
+  }
+
+  @Post('signup')
+  public async signup(
+    @Body(new ValidationPipe())
+    body: SignupDto,
+  ) {
+    const { login, password, ...userData } = body;
+    const refreshToken = this.tokenService.createRefreshToken();
+    const user = await this.userRepository.save(userData);
+    const hashedPassword = await this.passwordService.hash(password);
+
+    const account = await this.accountRepository.save({
+      login,
+      password: hashedPassword,
+      refreshToken,
+      user,
+    });
+
+    const accessToken = await this.tokenService.createAccessToken(account);
+
+    return {
+      accessToken,
+      refreshToken,
+      user,
+    };
+  }
+
+  @Post('refresh')
+  public async refreshToken(
+    @Body(new ValidationPipe())
+    body: RefreshTokenDto,
+  ) {
+    const account = await this.accountRepository.findOne({
+      where: { refreshToken: body.refreshToken },
+    });
+
+    if (!account) {
+      throw new UnauthorizedException();
+    }
+
+    return {
+      accessToken: this.tokenService.createAccessToken(account),
+    };
   }
 }

@@ -20,11 +20,17 @@ export class Env {
   public NODE_ENV: string;
   public PORT: number;
   public SUPPORTED_LANGUAGES: string[];
-  public TYPEORM_CONNECTION: 'mongodb';
+  public ACCESS_TOKEN_SECRET: string;
+  public ACCESS_TOKEN_DURATION: number;
+  public TYPEORM_CONNECTION: 'mariadb' | 'mysql';
+  public TYPEORM_DATABASE: string;
   public TYPEORM_ENTITIES: string;
   public TYPEORM_LOGGING: boolean;
   public TYPEORM_SYNCHRONIZE: boolean;
-  public TYPEORM_URL: string;
+  public TYPEORM_HOST: string;
+  public TYPEORM_PASSWORD: string;
+  public TYPEORM_PORT: number;
+  public TYPEORM_USERNAME: string;
 
   constructor() {
     return Object.assign(this, yenv());

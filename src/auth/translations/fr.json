@@ -1,5 +1,7 @@
 {
-  "internal": {
-      "github": "L'api github n'est pas accessible pourle moment, veuillez reessayer plus tard"
+  "error": {
+    "internal": {
+      "github": "L'api github n'est pas accessible pour le moment, veuillez reessayer plus tard"
     }
+  }
 }
