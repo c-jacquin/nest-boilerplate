@@ -51,14 +51,14 @@ class UserControllerUnit {
   @test('remove method should call the remove method of userService')
   public async remove() {
     const spy = sinon.spy(this.userRepository, 'deleteById');
-    await this.userController.remove('1', this.response);
+    await this.userController.remove('1');
     expect(spy.calledWith(1, {}));
   }
 
   @test('update method should call the update method of userService')
   public async update() {
     const spy = sinon.spy(this.userRepository, 'update');
-    await this.userController.update(1, {}, this.response);
+    await this.userController.update(1, {});
     expect(spy.calledWith({ id: '1' }, {}));
   }
 
@@ -67,6 +67,10 @@ class UserControllerUnit {
       components: [
         {
           provide: 'UserRepository',
+          useClass: Repository,
+        },
+        {
+          provide: 'AccountRepository',
           useClass: Repository,
         },
       ],

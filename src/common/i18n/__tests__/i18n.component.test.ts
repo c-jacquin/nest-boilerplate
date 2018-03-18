@@ -20,7 +20,7 @@ class I18nComponentUnit {
   @test('translate method should call the t method of polyglot prototype')
   public async translate() {
     const polyglotSpy = sinon.spy(Polyglot.prototype, 't');
-    await this.i18n.translate('test');
+    await this.i18n.translate('error.badRequest');
     expect(polyglotSpy.called).to.equal(true);
   }
 

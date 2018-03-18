@@ -118,8 +118,10 @@ export class UserController {
     const user = await this.userRepository.findOneById(id, {
       relations: ['accounts'],
     });
-    for (const account of user.accounts) {
-      await this.accountRepository.deleteById(account.id);
+    if (Array.isArray(user.accounts)) {
+      for (const account of user.accounts) {
+        await this.accountRepository.deleteById(account.id);
+      }
     }
     return this.userRepository.deleteById(id);
   }
