@@ -1,5 +1,5 @@
-import { Account } from '../../account';
-import { User } from '../../user';
+import { Account } from '../../entities/account.entity';
+import { User } from '../../entities/user.entity';
 
 export interface AuthResponse {
   account: Account;

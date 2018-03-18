@@ -1,6 +1,6 @@
 import { Component } from '@nestjs/common';
 
-import { Account } from '../../account';
+import { Account } from '../../entities/account.entity';
 
 @Component()
 export class PasswordService {
@@ -16,6 +16,6 @@ export class PasswordService {
     login: string,
     password: string,
   ): Promise<Account> {
-    return Promise.resolve({ id: '1', user: null });
+    return Promise.resolve({ id: '1', user: null, roles: [] });
   }
 }
