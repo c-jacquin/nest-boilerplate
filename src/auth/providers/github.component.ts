@@ -10,8 +10,9 @@ import { Repository } from 'typeorm';
 import { Env, Http, I18n } from '../../common';
 import { Account } from '../entities/account.entity';
 import { User } from '../entities/user.entity';
+import { AuthProviders } from '../enums/AuthProviders';
+import { Roles } from '../enums/Roles';
 import { TokenService } from '../services/token.component';
-import { AuthProviders } from './AuthProviders';
 import { GithubAuthDto } from './dto';
 import { AuthResponse } from './interfaces/AuthResponse';
 import { GithubUser } from './interfaces/GithubUser';
@@ -36,6 +37,7 @@ export class GithubService {
         account: {
           login: githubUser.login,
           provider: AuthProviders.GITHUB,
+          roles: [Roles.PEON],
           user: null,
         },
         providerToken,

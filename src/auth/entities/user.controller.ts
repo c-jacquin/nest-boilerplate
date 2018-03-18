@@ -9,24 +9,34 @@ import {
   Put,
   Query,
   Response,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Response as ExpressResponse } from 'express';
 import { Repository } from 'typeorm';
 
 import { ValidationPipe } from '../../common';
 import { FindManyQuery, FindOneQuery, FindQueryPipe } from '../../database';
+import { Roles } from '../enums/Roles';
+import { IsUserOwnerGuard } from '../guards/isUserOwner.guard';
+import { RestrictRoles } from '../guards/restrictRoles.decorator';
+import { RolesGuard } from '../guards/roles.guard';
+import { Account } from './account.entity';
 import { User } from './user.entity';
 
 @Controller('user')
+@UseGuards(RolesGuard)
+@ApiBearerAuth()
 @ApiUseTags('user')
 export class UserController {
   constructor(
+    @InjectRepository(Account) private accountRepository: Repository<Account>,
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
   @Post()
+  @RestrictRoles(Roles.ADMIN)
   @ApiResponse({
     description: 'The user has been created',
     status: 201,
@@ -45,6 +55,7 @@ export class UserController {
   }
 
   @Get()
+  @RestrictRoles(Roles.ADMIN)
   @ApiResponse({
     description: 'The users have been retrieved',
     isArray: true,
@@ -68,6 +79,7 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(IsUserOwnerGuard)
   @ApiResponse({
     description: 'The user has been retrieved',
     status: 200,
@@ -93,6 +105,7 @@ export class UserController {
   }
 
   @Delete(':id')
+  @UseGuards(IsUserOwnerGuard)
   @ApiResponse({
     description: 'The user has been deleted',
     status: 200,
@@ -102,10 +115,17 @@ export class UserController {
     status: 204,
   })
   public async remove(@Param('id') id: string) {
+    const user = await this.userRepository.findOneById(id, {
+      relations: ['accounts'],
+    });
+    for (const account of user.accounts) {
+      await this.accountRepository.deleteById(account.id);
+    }
     return this.userRepository.deleteById(id);
   }
 
   @Put(':id')
+  @UseGuards(IsUserOwnerGuard)
   @ApiResponse({
     description: 'The user has been updated',
     status: 200,

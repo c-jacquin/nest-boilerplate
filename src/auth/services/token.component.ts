@@ -28,7 +28,7 @@ export class TokenService {
     });
   }
 
-  public parse(token: string): Promise<boolean> {
+  public parse(token: string): Promise<Account> {
     return new Promise((resolve, reject) => {
       jwt.verify(
         token,

@@ -9,8 +9,9 @@ import {
   Put,
   Query,
   Response,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Response as ExpressResponse } from 'express';
 import { ObjectID } from 'mongodb';
@@ -18,9 +19,15 @@ import { Repository } from 'typeorm';
 
 import { ValidationPipe } from '../../common';
 import { FindManyQuery, FindOneQuery, FindQueryPipe } from '../../database';
+import { Roles } from '../enums/Roles';
+import { IsAccountOwnerGuard } from '../guards/isAccountOwner.guard';
+import { RestrictRoles } from '../guards/restrictRoles.decorator';
+import { RolesGuard } from '../guards/roles.guard';
 import { Account } from './account.entity';
 
-@Controller('user/:id/account')
+@Controller('account')
+@UseGuards(RolesGuard)
+@ApiBearerAuth()
 @ApiUseTags('account')
 export class AccountController {
   constructor(
@@ -28,6 +35,7 @@ export class AccountController {
   ) {}
 
   @Get()
+  @RestrictRoles(Roles.ADMIN)
   @ApiResponse({
     description: 'The accounts have been retrieved',
     isArray: true,
@@ -51,6 +59,7 @@ export class AccountController {
   }
 
   @Get(':id')
+  @UseGuards(IsAccountOwnerGuard)
   @ApiResponse({
     description: 'The user has been retrieved',
     status: 200,
@@ -76,6 +85,7 @@ export class AccountController {
   }
 
   @Delete(':id')
+  @UseGuards(IsAccountOwnerGuard)
   @ApiResponse({
     description: 'The account has been deleted',
     status: 200,
@@ -98,6 +108,7 @@ export class AccountController {
   }
 
   @Put(':id')
+  @UseGuards(IsAccountOwnerGuard)
   @ApiResponse({
     description: 'The account has been updated',
     status: 200,

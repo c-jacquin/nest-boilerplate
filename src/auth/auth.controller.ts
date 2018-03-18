@@ -5,16 +5,16 @@ import {
   Post,
   UnauthorizedException,
   UseFilters,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { InternalErrorFilter } from '../common';
+import { ValidationPipe } from '../common';
 import { RefreshTokenDto, SigninDto, SignupDto } from './dto';
 import { Account } from './entities/account.entity';
 import { User } from './entities/user.entity';
+import { Roles } from './enums/Roles';
 import { PasswordService } from './services/password.component';
 import { TokenService } from './services/token.component';
 
@@ -23,8 +23,8 @@ import { TokenService } from './services/token.component';
 export class AuthController {
   constructor(
     @InjectRepository(Account) private accountRepository: Repository<Account>,
+    @InjectRepository(User) private userRepository: Repository<User>,
     private passwordService: PasswordService,
-    @Inject('UserRepository') private userRepository: Repository<User>,
     private tokenService: TokenService,
   ) {}
 
@@ -65,6 +65,7 @@ export class AuthController {
       login,
       password: hashedPassword,
       refreshToken,
+      roles: [Roles.PEON],
       user,
     });
 
@@ -83,15 +84,14 @@ export class AuthController {
     body: RefreshTokenDto,
   ) {
     const account = await this.accountRepository.findOne({
-      where: { refreshToken: body.refreshToken },
+      where: body,
     });
-
     if (!account) {
       throw new UnauthorizedException();
     }
 
     return {
-      accessToken: this.tokenService.createAccessToken(account),
+      accessToken: await this.tokenService.createAccessToken(account),
     };
   }
 }
