@@ -1,9 +1,4 @@
-import {
-  ExpressMiddleware,
-  Inject,
-  Middleware,
-  NestMiddleware,
-} from '@nestjs/common';
+import { ExpressMiddleware, Middleware, NestMiddleware } from '@nestjs/common';
 
 import { TokenService } from '../services/token.component';
 

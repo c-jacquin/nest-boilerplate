@@ -2,7 +2,6 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { AuthProviders } from '../enums/AuthProviders';
 import { Roles } from '../enums/Roles';
 import { User } from './user.entity';
 
@@ -29,8 +28,9 @@ export class Account {
   public password?: string;
 
   @Column()
+  @IsString()
   @IsOptional()
-  public provider?: AuthProviders;
+  public provider?: string;
 
   @Column()
   @IsString()

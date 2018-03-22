@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+node_modules
 
 # IDE
 /.idea
@@ -17,3 +17,7 @@ yarn-error.log
 
 # dist
 /dist
+public/index.html
+public/service-worker.js
+public/asset-manifest.json
+public/static

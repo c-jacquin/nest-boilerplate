@@ -34,5 +34,7 @@ import { DatabaseFilter, DatabaseModule } from './database';
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/docs', app, document);
 
+  app.use(env.ADMIN_SWAGGER_PATH, (req, res) => res.send(document));
+
   await app.listen(env.PORT);
 })(new Env());

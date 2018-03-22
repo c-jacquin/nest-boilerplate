@@ -2,7 +2,8 @@
     "defaultSeverity": "error",
     "extends": [
         "tslint:latest",
-        "tslint-config-prettier"
+        "tslint-config-prettier",
+        "tslint-react"
     ],
     "rulesDirectory": ["tslint-plugin-prettier"],
     "rules": {
@@ -10,6 +11,7 @@
       "no-submodule-imports": false,
       "no-implicit-dependencies": false,
       "prettier": true,
-      "variable-name": false
+      "variable-name": false,
+      "jsx-no-multiline-js": false
     }
 }
