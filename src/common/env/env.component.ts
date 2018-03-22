@@ -10,6 +10,9 @@ enum AppEnv {
 
 @Component()
 export class Env {
+  public ACCESS_TOKEN_SECRET: string;
+  public ACCESS_TOKEN_DURATION: number;
+  public ADMIN_SWAGGER_PATH: string;
   public DEBUG: boolean;
   public DEFAULT_LOCALE: string;
   public GITHUB_API: string;
@@ -20,8 +23,6 @@ export class Env {
   public NODE_ENV: string;
   public PORT: number;
   public SUPPORTED_LANGUAGES: string[];
-  public ACCESS_TOKEN_SECRET: string;
-  public ACCESS_TOKEN_DURATION: number;
   public TYPEORM_CONNECTION: 'mariadb' | 'mysql';
   public TYPEORM_DATABASE: string;
   public TYPEORM_ENTITIES: string;

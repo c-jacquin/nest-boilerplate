@@ -25,7 +25,7 @@ import { RolesGuard } from '../guards/roles.guard';
 import { Account } from './account.entity';
 import { User } from './user.entity';
 
-@Controller('user')
+@Controller('api/user')
 @UseGuards(RolesGuard)
 @ApiBearerAuth()
 @ApiUseTags('user')
@@ -55,7 +55,7 @@ export class UserController {
   }
 
   @Get()
-  @RestrictRoles(Roles.ADMIN)
+  // @RestrictRoles(Roles.ADMIN)
   @ApiResponse({
     description: 'The users have been retrieved',
     isArray: true,
@@ -65,6 +65,7 @@ export class UserController {
   public async find(
     @Query(new FindQueryPipe(), new ValidationPipe())
     query: FindManyQuery<User>,
+    @Response() res: ExpressResponse,
   ) {
     const { order, orderBy, ...otherOptions } = query;
     const options: any = otherOptions;
@@ -75,7 +76,10 @@ export class UserController {
       };
     }
 
-    return this.userRepository.find(options);
+    const count = await this.userRepository.count();
+    const users = await this.userRepository.find(options);
+    res.set('Content-Range', `${users.length}/${count}`);
+    res.json(users);
   }
 
   @Get(':id')
@@ -118,7 +122,7 @@ export class UserController {
     const user = await this.userRepository.findOneById(id, {
       relations: ['accounts'],
     });
-    if (Array.isArray(user.accounts)) {
+    if (user && Array.isArray(user.accounts)) {
       for (const account of user.accounts) {
         await this.accountRepository.deleteById(account.id);
       }
@@ -147,6 +151,7 @@ export class UserController {
     @Body(new ValidationPipe())
     user: User,
   ) {
-    return this.userRepository.update({ id }, user);
+    await this.userRepository.update({ id }, user);
+    return {};
   }
 }

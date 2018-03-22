@@ -1,12 +1,5 @@
-import {
-  Body,
-  Controller,
-  Inject,
-  Post,
-  UnauthorizedException,
-  UseFilters,
-} from '@nestjs/common';
-import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
+import { ApiUseTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -39,6 +32,7 @@ export class AuthController {
     );
     const refreshToken = this.tokenService.createRefreshToken();
     await this.accountRepository.update({ id: account.id }, { refreshToken });
+    delete account.password;
     const accessToken = await this.tokenService.createAccessToken({
       ...account,
       refreshToken,
@@ -46,8 +40,8 @@ export class AuthController {
 
     return {
       accessToken,
+      account,
       refreshToken,
-      user: account.user,
     };
   }
 

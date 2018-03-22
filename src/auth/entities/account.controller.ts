@@ -14,7 +14,6 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Response as ExpressResponse } from 'express';
-import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
 
 import { ValidationPipe } from '../../common';
@@ -25,7 +24,7 @@ import { RestrictRoles } from '../guards/restrictRoles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
 import { Account } from './account.entity';
 
-@Controller('account')
+@Controller('api/account')
 @UseGuards(RolesGuard)
 @ApiBearerAuth()
 @ApiUseTags('account')
@@ -33,6 +32,25 @@ export class AccountController {
   constructor(
     @InjectRepository(Account) private accountRepository: Repository<Account>,
   ) {}
+
+  @Post()
+  @RestrictRoles(Roles.ADMIN)
+  @ApiResponse({
+    description: 'The account has been created',
+    status: 201,
+    type: Account,
+  })
+  @ApiResponse({
+    description:
+      "One of the property of the body didn't pass the validation, error details on the message",
+    status: 400,
+  })
+  public async create(
+    @Body(new ValidationPipe())
+    body: Account,
+  ) {
+    return this.accountRepository.save(body);
+  }
 
   @Get()
   @RestrictRoles(Roles.ADMIN)
@@ -45,6 +63,7 @@ export class AccountController {
   public async find(
     @Query(new FindQueryPipe(), new ValidationPipe())
     query: FindManyQuery<Account>,
+    @Response() res: ExpressResponse,
   ) {
     const { order, orderBy, ...otherOptions } = query;
     const options: any = otherOptions;
@@ -55,7 +74,10 @@ export class AccountController {
       };
     }
 
-    return this.accountRepository.find(options);
+    const count = await this.accountRepository.count();
+    const accounts = await this.accountRepository.find(options);
+    res.set('Content-Range', `${accounts.length}/${count}`);
+    res.json(accounts);
   }
 
   @Get(':id')
@@ -103,7 +125,7 @@ export class AccountController {
     if (value) {
       res.json();
     } else {
-      res.status(HttpStatus.NO_CONTENT).json();
+      res.status(HttpStatus.NO_CONTENT).json({});
     }
   }
 
@@ -134,7 +156,7 @@ export class AccountController {
     if (value) {
       res.json();
     } else {
-      res.status(HttpStatus.NO_CONTENT).json();
+      res.status(HttpStatus.NO_CONTENT).json({});
     }
   }
 }
