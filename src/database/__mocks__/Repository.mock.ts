@@ -6,6 +6,10 @@ export class Repository {
     return Promise.resolve({ id: '1' });
   }
 
+  public count(): Promise<any> {
+    return Promise.resolve(10);
+  }
+
   public deleteById(): Promise<any> {
     return Promise.resolve();
   }

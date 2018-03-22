@@ -5,7 +5,7 @@ import { suite, test } from 'mocha-typescript';
 import { Env } from '../env.component';
 
 @suite('unit Env component')
-class EnvComponentUnit {
+export class EnvComponentUnit {
   private env: Env;
 
   public async before() {

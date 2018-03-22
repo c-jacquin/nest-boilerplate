@@ -30,7 +30,7 @@ export class Account {
   @Column()
   @IsString()
   @IsOptional()
-  public provider?: string;
+  public provider?: number;
 
   @Column()
   @IsString()

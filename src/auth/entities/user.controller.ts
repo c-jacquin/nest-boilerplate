@@ -55,7 +55,7 @@ export class UserController {
   }
 
   @Get()
-  // @RestrictRoles(Roles.ADMIN)
+  @RestrictRoles(Roles.ADMIN)
   @ApiResponse({
     description: 'The users have been retrieved',
     isArray: true,

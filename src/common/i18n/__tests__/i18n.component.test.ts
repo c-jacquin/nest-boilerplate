@@ -10,7 +10,7 @@ import { i18nFactory } from '../i18n.factory';
 import { I18n } from '../interfaces/I18n';
 
 @suite('unit I18n component')
-class I18nComponentUnit {
+export class I18nComponentUnit {
   private i18n: I18n;
 
   public async before() {

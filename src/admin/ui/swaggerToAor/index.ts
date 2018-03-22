@@ -8,7 +8,7 @@ export * from './interfaces';
 
 export const fetchAndFormatSwaggerJson = async () => {
   const entityNames = process.env.ADMIN_ENTITIES as string;
-  const { json } = await fetchJson(process.env.ADMIN_SWAGGER_PATH as string);
+  const { json } = await fetchJson(process.env.SWAGGER_JSON_PATH as string);
 
   const formattedPaths = Object.keys(json.paths)
     .filter((entryPoint: string) => {

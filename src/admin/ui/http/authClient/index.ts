@@ -6,7 +6,7 @@ export default async (type: string, params: any) => {
   switch (type) {
     case AUTH_LOGIN:
       const { username: login, password } = params;
-      const { json } = await fetchJson(process.env.ADMIN_AUTH_PATH as string, {
+      const { json } = await fetchJson(process.env.AUTH_PATH as string, {
         body: JSON.stringify({ login, password }),
         method: 'POST',
       });

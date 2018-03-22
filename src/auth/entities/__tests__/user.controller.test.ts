@@ -6,10 +6,9 @@ import * as sinon from 'sinon';
 import { Repository } from '../../../database/__mocks__/Repository.mock';
 
 import { UserController } from '../user.controller';
-import { User } from '../user.entity';
 
 @suite('unit User controller')
-class UserControllerUnit {
+export class UserControllerUnit {
   private userController: UserController;
   private userRepository: Repository;
   private response = new ExpressResponse();
@@ -28,7 +27,7 @@ class UserControllerUnit {
   @test('find method should call the find method of userService')
   public async find() {
     const spy = sinon.spy(this.userRepository, 'find');
-    await this.userController.find({ take: 4 });
+    await this.userController.find({ take: 4 }, this.response);
     expect(spy.calledWith({ take: 4 }));
   }
 
@@ -37,7 +36,10 @@ class UserControllerUnit {
   )
   public async findOrdered() {
     const spy = sinon.spy(this.userRepository, 'find');
-    await this.userController.find({ orderBy: 'name', order: 'ASC' });
+    await this.userController.find(
+      { orderBy: 'name', order: 'ASC' },
+      this.response,
+    );
     expect(spy.calledWith({ order: { name: 'ASC' } }));
   }
 

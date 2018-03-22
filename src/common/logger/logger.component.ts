@@ -1,4 +1,4 @@
-import { Component, LoggerService } from '@nestjs/common';
+import { Component } from '@nestjs/common';
 import * as clfDate from 'clf-date';
 import { Logger as WinstonLogger, transports } from 'winston';
 

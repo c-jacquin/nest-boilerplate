@@ -5,7 +5,6 @@ import {
   HttpException,
   Inject,
 } from '@nestjs/common';
-import { ValidationError } from 'class-validator';
 import { Response } from 'express';
 
 import { I18n } from '../../i18n';

@@ -8,7 +8,7 @@ import { I18n } from './interfaces/I18n';
 export const i18nFactory = {
   inject: [Env, Context],
   provide: 'I18n',
-  useFactory: (env: Env, ctx: Context) => {
+  useFactory: (env: Env, ctx: Context): I18n => {
     const messages = env.SUPPORTED_LANGUAGES.reduce(
       (acc, locale) => ({
         ...acc,

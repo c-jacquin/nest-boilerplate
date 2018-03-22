@@ -21,3 +21,7 @@ public/index.html
 public/service-worker.js
 public/asset-manifest.json
 public/static
+
+#log
+log
+!log/.gitkeep

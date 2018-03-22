@@ -1,4 +1,3 @@
-import { UnauthorizedException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
 import * as jwt from 'jsonwebtoken';
@@ -11,7 +10,7 @@ import { Account } from '../../entities/account.entity';
 import { TokenService } from '../token.component';
 
 @suite('unit TokenService')
-class TokenServiceUnit {
+export class TokenServiceUnit {
   private tokenService: TokenService;
   private env: Env;
   private account: Account = {
@@ -52,7 +51,7 @@ class TokenServiceUnit {
   public async parse() {
     const spy = sinon.spy(jwt, 'verify');
     const token = await jwt.sign({ foo: 'bar' }, this.env.ACCESS_TOKEN_SECRET);
-    const parsedToken = await this.tokenService.parse(token);
+    await this.tokenService.parse(token);
 
     expect(spy.called).to.equal(true);
   }

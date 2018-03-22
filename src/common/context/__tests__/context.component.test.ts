@@ -7,7 +7,7 @@ import { Env } from '../../env';
 import { Context } from '../context.component';
 
 @suite('unit Context component')
-class ContextComponentUnit {
+export class ContextComponentUnit {
   private ctx: Context;
 
   public async before() {

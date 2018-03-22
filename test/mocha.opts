@@ -1,7 +1,6 @@
 --ui mocha-typescript
 --require source-map-support/register
 --require ts-node/register
---require test/setup
 --recursive test
 --full-trace
 --bail

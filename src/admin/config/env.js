@@ -2,8 +2,9 @@
 
 const fs = require('fs');
 const path = require('path');
-const paths = require('./paths');
 const yenv = require('yenv');
+
+const paths = require('./paths');
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
@@ -28,11 +29,13 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^ADMIN_/i;
 
-const env = yenv(path.join(__dirname, '../env.yml'));
+const env = yenv();
+
+const frontEnv = ['SUPPORTED_LANGUAGES', 'DEFAULT_LOCALE', 'AUTH_PATH', 'API_PATH', 'SWAGGER_JSON_PATH'];
 
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(env)
-    .filter(key => REACT_APP.test(key))
+    .filter(key => REACT_APP.test(key) || frontEnv.includes(key))
     .reduce(
       (acc, key) => {
         acc[key] = env[key];

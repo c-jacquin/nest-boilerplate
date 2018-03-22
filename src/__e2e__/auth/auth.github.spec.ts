@@ -1,4 +1,3 @@
-import { NestApplication } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
 import * as express from 'express';
@@ -10,7 +9,7 @@ import { ApplicationModule } from '../../app.module';
 import { DatabaseModule, DatabaseService } from '../../database';
 
 @suite('e2e /auth/github success')
-class AuthGithubE2E {
+export class AuthGithubE2E {
   private app: any;
   private databaseService: DatabaseService;
   private token = '123ABC';

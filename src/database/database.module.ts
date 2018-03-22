@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
-import * as yenv from 'yenv';
 
 import { CommonModule, Env } from '../common';
 import { DatabaseService } from './database.component';

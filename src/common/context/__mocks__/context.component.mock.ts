@@ -7,8 +7,8 @@ const getSet = {
 
 @Component()
 export class Context {
+  public store = getSet;
   private $requestId: string;
-  private store = getSet;
 
   public create(cb) {
     cb(getSet);

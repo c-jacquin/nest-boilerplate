@@ -1,8 +1,5 @@
 import { Component } from '@nestjs/common';
 import { createNamespace, getNamespace } from 'cls-hooked';
-import * as yenv from 'yenv';
-
-import { Env } from '../env';
 
 export enum ContextTypes {
   LOCALE = 'locale',
@@ -13,8 +10,6 @@ export enum ContextTypes {
 
 @Component()
 export class Context {
-  constructor(private env: Env) {}
-
   public create(cb) {
     createNamespace(ContextTypes.ROOT).run(cb);
   }

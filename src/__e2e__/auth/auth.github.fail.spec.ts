@@ -1,16 +1,14 @@
 import { Test } from '@nestjs/testing';
-import { expect } from 'chai';
 import * as express from 'express';
 import { suite, test } from 'mocha-typescript';
 import * as nock from 'nock';
 import * as request from 'supertest';
-import { Connection } from 'typeorm';
 
 import { ApplicationModule } from '../../app.module';
 import { DatabaseModule, DatabaseService } from '../../database';
 
 @suite('e2e /auth/github fail')
-class AuthGithubFailE2E {
+export class AuthGithubFailE2E {
   private app: any;
   private databaseService: DatabaseService;
   private server = express();
@@ -29,7 +27,7 @@ class AuthGithubFailE2E {
   @test('should fail if github request fails')
   public async internalError() {
     this.setupNock();
-    const response = await request(this.server)
+    await request(this.server)
       .post('/auth/github')
       .send({
         clientId: '',
@@ -42,7 +40,7 @@ class AuthGithubFailE2E {
 
   @test('should fail with 400 if body type is not correct')
   public async validation() {
-    const response = await request(this.server)
+    await request(this.server)
       .post('/auth/github')
       .send({
         clientId: 4,

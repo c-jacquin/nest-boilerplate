@@ -58,7 +58,7 @@ class App extends React.PureComponent<{}, AppState> {
             dashboard={Dashboard}
             locale={this.getLocale()}
             messages={messages}
-            restClient={restClient(process.env.ADMIN_API_PATH as string)}
+            restClient={restClient(process.env.API_PATH as string)}
           >
             {this.state.swaggerJson.map((entity, index) => (
               <Resource
@@ -78,7 +78,7 @@ class App extends React.PureComponent<{}, AppState> {
   private getLocale() {
     const browserLocale = resolveBrowserLocale();
     const supportedLocales = Array.from(process.env
-      .ADMIN_SUPPORTED_LANGUAGES as string);
+      .SUPPORTED_LANGUAGES as string);
 
     return supportedLocales.includes(browserLocale)
       ? browserLocale

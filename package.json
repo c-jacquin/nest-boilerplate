@@ -4,18 +4,20 @@
   "description": "Nest TypeScript starter kit",
   "license": "MIT",
   "scripts": {
-    "build": "tsc && node src/admin/config/build.js",
+    "build": "cross-env NODE_ENV=production tsc && node src/admin/config/build.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "cz": "git-cz",
     "debug": "cross-env DEBUG=true NODE_ENV=local nodemon",
     "dev": "cross-env NODE_ENV=local nodemon",
     "lint": "tslint \"./src/**/*.ts\" \"./src/**/*.tsx\"",
     "precommit": "lint-staged",
-    "start": "node dist/main.js",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
     "test": "cross-env NODE_ENV=test nyc mocha",
     "test:watch": "cross-env NODE_ENV=test nyc mocha --watch --recursive"
   },
   "dependencies": {
+    "@nest-middlewares/helmet": "^1.1.1",
+    "@nest-middlewares/serve-static": "^1.1.1",
     "@nestjs/common": "^4.5.9",
     "@nestjs/core": "^4.5.10",
     "@nestjs/microservices": "^4.5.8",

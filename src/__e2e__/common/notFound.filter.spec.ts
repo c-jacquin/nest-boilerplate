@@ -1,6 +1,4 @@
-import { NestApplication } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
-import { expect } from 'chai';
 import * as express from 'express';
 import { suite, test } from 'mocha-typescript';
 import * as request from 'supertest';
@@ -9,7 +7,7 @@ import { ApplicationModule } from '../../app.module';
 import { DatabaseModule, DatabaseService } from '../../database';
 
 @suite('e2e notFound filter')
-class NotFoundFilterE2E {
+export class NotFoundFilterE2E {
   private app: any;
   private databaseService: DatabaseService;
   private server = express();
@@ -26,7 +24,7 @@ class NotFoundFilterE2E {
 
   @test('should respond with a 404 status and the correct message')
   public async filter() {
-    const response = await request(this.server)
+    return request(this.server)
       .get('/')
       .expect(404);
   }

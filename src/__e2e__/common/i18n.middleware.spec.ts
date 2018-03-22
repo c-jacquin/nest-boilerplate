@@ -1,4 +1,3 @@
-import { NestApplication } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
 import * as express from 'express';
@@ -11,7 +10,7 @@ import { CommonModule, I18n } from '../../common';
 import { DatabaseModule, DatabaseService } from '../../database';
 
 @suite('e2e i18n middleware')
-class I18nFilterE2E {
+export class I18nFilterE2E {
   private app: any;
   private databaseService: DatabaseService;
   private i18n: I18n;
@@ -32,7 +31,7 @@ class I18nFilterE2E {
   )
   public async middleware() {
     const spy = sinon.spy(this.i18n, 'setLocale');
-    const response = await request(this.server)
+    await request(this.server)
       .get('/swagger')
       .set('content-language', 'fr');
 

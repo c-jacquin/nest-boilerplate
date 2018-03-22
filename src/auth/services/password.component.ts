@@ -48,7 +48,10 @@ export class PasswordService {
       throw new UnauthorizedException();
     }
 
-    const isPasswordOk = await this.compare(password, account.password);
+    const isPasswordOk = await this.compare(
+      password,
+      account.password as string,
+    );
 
     if (!isPasswordOk) {
       throw new UnauthorizedException();

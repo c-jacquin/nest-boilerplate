@@ -9,7 +9,7 @@ import { PasswordService } from '../services/__mocks__/password.component.mock';
 import { TokenService } from '../services/__mocks__/token.component.mock';
 
 @suite('unit AuthController')
-class AuthControllerUnit {
+export class AuthControllerUnit {
   private accountRepository: Repository;
   private authController: AuthController;
   private tokenService: TokenService;

@@ -9,7 +9,7 @@ import { Repository } from '../../../database/__mocks__/Repository.mock';
 import { PasswordService } from '../password.component';
 
 @suite('unit PasswordService')
-class PasswordServiceUnit {
+export class PasswordServiceUnit {
   private passwordService: PasswordService;
   private accountRepository: Repository;
 

@@ -1,16 +1,8 @@
-import {
-  Body,
-  Controller,
-  Post,
-  UnauthorizedException,
-  UseFilters,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { InternalErrorFilter } from '../../common';
 import { Account } from '../entities/account.entity';
 import { User } from '../entities/user.entity';
 import { TokenService } from '../services/token.component';
@@ -49,7 +41,7 @@ export class ProvidersController {
     } = await this.githubService.auth(body);
     let user = await this.userRepository.findOne(githubUser);
     if (!user) {
-      user = await this.userRepository.create(user);
+      user = await this.userRepository.create(githubUser);
       githubAccount.user = user;
     }
     githubAccount.refreshToken = this.tokenService.createRefreshToken();

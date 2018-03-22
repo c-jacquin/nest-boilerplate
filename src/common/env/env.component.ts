@@ -12,7 +12,7 @@ enum AppEnv {
 export class Env {
   public ACCESS_TOKEN_SECRET: string;
   public ACCESS_TOKEN_DURATION: number;
-  public ADMIN_SWAGGER_PATH: string;
+  public SWAGGER_JSON_PATH: string;
   public DEBUG: boolean;
   public DEFAULT_LOCALE: string;
   public GITHUB_API: string;

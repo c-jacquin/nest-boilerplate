@@ -16,6 +16,6 @@ export class PasswordService {
     login: string,
     password: string,
   ): Promise<Account> {
-    return Promise.resolve({ id: '1', user: null, roles: [] });
+    return Promise.resolve({ id: '1', user: {}, roles: [] });
   }
 }
