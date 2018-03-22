@@ -2,10 +2,10 @@ import { Component } from '@nestjs/common';
 import { createNamespace, getNamespace } from 'cls-hooked';
 
 export enum ContextTypes {
-  LOCALE = 'locale',
-  ROOT = 'context',
-  REQUEST = 'request',
-  RESPONSE = 'response',
+  LOCALE = 'LOCALE',
+  ROOT = 'CONTEXT',
+  REQUEST_ID = 'REQUEST_ID',
+  REQUEST_TIMER = 'REQUEST_TIMER',
 }
 
 @Component()
@@ -22,24 +22,20 @@ export class Context {
     return this.store.get(ContextTypes.LOCALE);
   }
 
-  public set request(request) {
-    this.store.set(ContextTypes.REQUEST, request);
-  }
-
-  public get request() {
-    return this.store.get(ContextTypes.REQUEST);
-  }
-
-  public get response() {
-    return this.store.get(ContextTypes.RESPONSE);
-  }
-
-  public set response(response) {
-    this.store.set(ContextTypes.RESPONSE, response);
+  public set requestId(requestId) {
+    this.store.set(ContextTypes.REQUEST_ID, requestId);
   }
 
   public get requestId() {
-    return this.request.id;
+    return this.store.get(ContextTypes.REQUEST_ID);
+  }
+
+  public get requestTimer() {
+    return this.store.get(ContextTypes.REQUEST_TIMER);
+  }
+
+  public set requestTimer(requestTimer) {
+    this.store.set(ContextTypes.REQUEST_TIMER, requestTimer);
   }
 
   public get store() {

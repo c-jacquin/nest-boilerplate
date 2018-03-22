@@ -11,8 +11,7 @@ export class ContextMiddleware implements NestMiddleware {
     return (req, res, next) => {
       req.id = uuid();
       this.ctx.create(() => {
-        this.ctx.request = req;
-        this.ctx.response = res;
+        this.ctx.requestId = req.id;
         next();
       });
     };

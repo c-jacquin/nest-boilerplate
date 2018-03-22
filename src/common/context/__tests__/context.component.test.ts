@@ -24,13 +24,13 @@ export class ContextComponentUnit {
     expect(cbSpy.called).to.equal(true);
   }
 
-  @test('response should call set method of the store')
+  @test('requestId should call set method of the store')
   public response(done) {
     this.ctx.create(() => {
       const spy = sinon.spy(this.ctx.store, 'set');
-      this.ctx.response = 'foo';
+      this.ctx.requestId = 'foo';
       expect(spy.called).to.equal(true);
-      expect(this.ctx.response).to.equal('foo');
+      expect(this.ctx.requestId).to.equal('foo');
       done();
     });
   }

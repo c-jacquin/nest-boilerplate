@@ -7,8 +7,6 @@ import { Logger } from '../logger';
 
 @Component()
 export class Http {
-  private static REQUEST_TIMER = 'request-timer';
-
   constructor(private ctx: Context, private logger: Logger) {
     axios.default.interceptors.response.use(
       this.successInterceptor,
@@ -35,7 +33,7 @@ export class Http {
   }
 
   private getRequestDuration() {
-    return Date.now() - this.ctx.store.get(Http.REQUEST_TIMER);
+    return Date.now() - this.ctx.requestTimer;
   }
 
   private formatLogMessage({ message, method, url, status }) {
@@ -48,7 +46,7 @@ export class Http {
 
   @autobind
   private requestInterceptor(config) {
-    this.ctx.store.set(Http.REQUEST_TIMER, Date.now());
+    this.ctx.store.requestTimer = Date.now();
     return config;
   }
 
