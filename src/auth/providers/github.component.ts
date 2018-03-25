@@ -3,8 +3,11 @@ import {
   Inject,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { Env, Http, I18n } from '../../common';
+import { Role } from '../entities/role.entity';
 import { AuthProviders } from '../enums/AuthProviders';
 import { Roles } from '../enums/Roles';
 import { GithubAuthDto } from './dto';
@@ -17,18 +20,22 @@ export class GithubService {
     private env: Env,
     private http: Http,
     @Inject('I18n') private i18n: I18n,
+    @InjectRepository(Role) private roleRepository: Repository<Role>,
   ) {}
 
   public async auth({ clientId, code }: GithubAuthDto): Promise<AuthResponse> {
     try {
       const providerToken = await this.getToken(clientId, code);
       const githubUser = await this.getUser(providerToken);
+      const peonRole = (await this.roleRepository.findOne({
+        name: Roles.PEON,
+      })) as Role;
 
       return {
         account: {
           login: githubUser.login,
           provider: AuthProviders.GITHUB,
-          roles: [Roles.PEON],
+          role: peonRole,
           user: {},
         },
         providerToken,

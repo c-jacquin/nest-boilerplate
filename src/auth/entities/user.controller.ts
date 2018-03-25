@@ -77,8 +77,10 @@ export class UserController {
     }
 
     const count = await this.userRepository.count();
-    const users = await this.userRepository.find(options);
-    res.set('Content-Range', `${users.length}/${count}`);
+    const users = !!query.ids
+      ? await this.userRepository.findByIds(query.ids)
+      : await this.userRepository.find(options);
+    res.set('Content-Range', `users ${users.length}/${count}`);
     res.json(users);
   }
 

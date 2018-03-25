@@ -74,21 +74,25 @@ export class AccountController {
       };
     }
 
+    options.relations = ['role'];
+
     const count = await this.accountRepository.count();
-    const accounts = await this.accountRepository.find(options);
-    res.set('Content-Range', `${accounts.length}/${count}`);
+    const accounts = Array.isArray(query.ids)
+      ? await this.accountRepository.findByIds(query.ids)
+      : await this.accountRepository.find(options);
+    res.set('Content-Range', `account ${accounts.length}/${count}`);
     res.json(accounts);
   }
 
   @Get(':id')
   @UseGuards(IsAccountOwnerGuard)
   @ApiResponse({
-    description: 'The user has been retrieved',
+    description: 'The account has been retrieved',
     status: 200,
     type: Account,
   })
   @ApiResponse({
-    description: 'The user has not been retrieved',
+    description: 'The account has not been retrieved',
     status: 204,
   })
   public async findOne(
@@ -113,7 +117,7 @@ export class AccountController {
     status: 200,
   })
   @ApiResponse({
-    description: "The user doesn't exist",
+    description: "The account doesn't exist",
     status: 204,
   })
   public async remove(

@@ -40,7 +40,7 @@ export class PasswordService {
     password: string,
   ): Promise<Account> {
     const account = await this.accountRepository.findOne({
-      relations: ['user'],
+      relations: ['user', 'role'],
       where: { login },
     });
 

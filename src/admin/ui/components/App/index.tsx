@@ -64,9 +64,19 @@ class App extends React.PureComponent<{}, AppState> {
               <Resource
                 key={index}
                 name={entity.name}
-                list={listFactory(entity)}
-                create={formCreateFactory(entity)}
-                edit={formEditFactory(entity)}
+                list={
+                  entity.endpoints.includes('get') ? listFactory(entity) : null
+                }
+                create={
+                  entity.endpoints.includes('post')
+                    ? formCreateFactory(entity)
+                    : null
+                }
+                edit={
+                  entity.endpoints.includes('put')
+                    ? formEditFactory(entity)
+                    : null
+                }
               />
             ))}
           </Admin>

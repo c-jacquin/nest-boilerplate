@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Guard } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { Role } from '../entities/role.entity';
 
 @Guard()
 export class RolesGuard implements CanActivate {
@@ -17,11 +18,12 @@ export class RolesGuard implements CanActivate {
     }
 
     const account = req.user.account;
-    const hasRole = () =>
-      !!account.roles.find(
-        role => !!roles.find(item => item.toUpperCase() === role),
-      );
+    const hasRole = () => {
+      return !!roles.find(item => {
+        return item.toUpperCase() === account.role.name;
+      });
+    };
 
-    return account && Array.isArray(account.roles) && hasRole();
+    return !!account && !!account.role && hasRole();
   }
 }

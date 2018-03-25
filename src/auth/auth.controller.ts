@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { ValidationPipe } from '../common';
 import { RefreshTokenDto, SigninDto, SignupDto } from './dto';
 import { Account } from './entities/account.entity';
+import { Role } from './entities/role.entity';
 import { User } from './entities/user.entity';
 import { Roles } from './enums/Roles';
 import { PasswordService } from './services/password.component';
@@ -17,6 +18,7 @@ export class AuthController {
   constructor(
     @InjectRepository(Account) private accountRepository: Repository<Account>,
     @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Role) private roleRepository: Repository<Role>,
     private passwordService: PasswordService,
     private tokenService: TokenService,
   ) {}
@@ -54,12 +56,14 @@ export class AuthController {
     const refreshToken = this.tokenService.createRefreshToken();
     const user = await this.userRepository.save(userData);
     const hashedPassword = await this.passwordService.hash(password);
-
+    const peonRole = (await this.roleRepository.findOne({
+      name: Roles.PEON,
+    })) as Role;
     const account = await this.accountRepository.save({
       login,
       password: hashedPassword,
       refreshToken,
-      roles: [Roles.PEON],
+      role: peonRole,
       user,
     });
 

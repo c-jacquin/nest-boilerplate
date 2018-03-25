@@ -1,5 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import {
+  IsJSON,
   IsNumber,
   IsOptional,
   IsString,
@@ -53,4 +54,13 @@ export class FindManyQuery<Entity> extends FindOneQuery<Entity> {
     type: String,
   })
   public readonly where?: Entity;
+
+  @IsJSON()
+  @IsOptional()
+  @ApiModelProperty({
+    description: 'list of id to retrieve',
+    required: false,
+    type: String,
+  })
+  public readonly ids?: string[];
 }

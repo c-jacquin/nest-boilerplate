@@ -1,0 +1,24 @@
+{
+  "user": {
+    "model": {
+      "properties": {
+        "accounts": {
+          "display": "role.name"
+        }
+      }
+    }
+  },
+  "account": {
+    "model": {
+      "properties": {
+        "user": {
+          "display": "name"
+        },
+        "role": {
+          "display": "name"
+        }
+      }
+    }
+  }
+}
+

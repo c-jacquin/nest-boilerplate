@@ -1,8 +1,8 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Roles } from '../enums/Roles';
+import { Role } from './role.entity';
 import { User } from './user.entity';
 
 @Entity()
@@ -30,19 +30,45 @@ export class Account {
   @Column()
   @IsString()
   @IsOptional()
-  public provider?: number;
+  @ApiModelPropertyOptional({
+    description: 'the provider of the account',
+    type: String,
+  })
+  public provider?: string;
 
   @Column()
   @IsString()
   @IsOptional()
+  @ApiModelPropertyOptional({
+    description:
+      'the refresh token is used to get a new access token when it expire',
+    type: String,
+  })
   public refreshToken?: string;
 
-  @Column('simple-array') public roles: Roles[];
+  @ApiModelProperty({
+    description: 'the role associated with this account',
+    type: Role,
+  })
+  @ManyToOne(type => Role, role => role.accounts, {
+    cascadeInsert: true,
+    cascadeRemove: true,
+    cascadeUpdate: true,
+  })
+  public role: Role;
 
+  @Column() public roleId?: string;
+
+  @ApiModelProperty({
+    description: 'the user who own this account',
+    type: User,
+  })
   @ManyToOne(type => User, user => user.accounts, {
     cascadeInsert: true,
     cascadeRemove: true,
     cascadeUpdate: true,
   })
   public user: User;
+
+  @Column() public userId?: string;
 }

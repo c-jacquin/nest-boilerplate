@@ -20,9 +20,8 @@ export class LoggerMiddleware implements NestMiddleware {
       onHeaders(res, () => {
         const diff = Date.now();
         const time = diff - startAt;
-
         this.logger.info(
-          `${req.method} ${req.url} ${res.statusCode} +${time}ms`,
+          `${req.method} ${req.originalUrl} ${res.statusCode} +${time}ms`,
         );
         if (this.env.DEBUG) {
           const {

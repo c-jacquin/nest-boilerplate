@@ -5,6 +5,8 @@ export interface SwaggerAorOptions {
     properties: {
       [key: string]: {
         description: string;
+        display: string;
+        required: boolean;
         type: string;
       };
     };

@@ -4,41 +4,54 @@ export * from './factories/create';
 export * from './factories/edit';
 export * from './factories/list';
 
+import config from '../config.json';
+import { deepAssign } from '../helpers/object';
+import { capitalizeFirstLetter } from '../helpers/string';
+import { SwaggerAorOptions } from './interfaces';
 export * from './interfaces';
 
-export const fetchAndFormatSwaggerJson = async () => {
+export const fetchAndFormatSwaggerJson = async (): Promise<
+  SwaggerAorOptions[]
+> => {
   const entityNames = process.env.ADMIN_ENTITIES as string;
   const { json } = await fetchJson(process.env.SWAGGER_JSON_PATH as string);
-
   const formattedPaths = Object.keys(json.paths)
-    .filter((entryPoint: string) => {
-      return !!Array.from(entityNames).find(entityName =>
-        entryPoint.includes(entityName),
-      );
-    })
+    .filter(
+      (entryPoint: string) =>
+        !!Array.from(entityNames).find(entityName =>
+          entryPoint.includes(entityName),
+        ),
+    )
     .reduce((acc, entryPoint) => {
       const key = entryPoint.split('/')[2];
-      const thing = json.paths[entryPoint].post || json.paths[entryPoint].put;
+      let endpoints = Object.keys(json.paths[entryPoint]);
 
-      let modelName;
-      if (thing) {
-        const { schema } = thing.parameters.find(
-          (param: any) => param.in === 'body',
-        );
-        modelName = schema.$ref.split('/')[2];
+      if (acc[key]) {
+        endpoints = [...endpoints, ...acc[key].endpoints];
+      }
+      const { properties, required } = json.definitions[
+        capitalizeFirstLetter(key)
+      ];
+      const model: any = { properties: {} };
+      for (const prop in properties) {
+        if (properties.hasOwnProperty(prop)) {
+          model.properties[prop] = !!properties[prop].$ref
+            ? json.definitions[capitalizeFirstLetter(prop)]
+            : properties[prop];
+          model.required = required.includes(prop);
+        }
       }
 
       return {
         ...acc,
         [key]: {
           ...acc[key],
-          model: json.definitions[modelName],
+          endpoints: Array.from(new Set(endpoints)),
+          model,
+          name: key,
         },
       };
     }, {});
 
-  return Object.keys(formattedPaths).map(key => ({
-    name: key,
-    ...formattedPaths[key],
-  }));
+  return Object.values<SwaggerAorOptions>(deepAssign()(formattedPaths, config));
 };

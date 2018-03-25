@@ -22,4 +22,14 @@ declare module 'admin-on-rest' {
   const UPDATE: string;
   const DELETE: string;
   const resolveBrowserLocale: any;
+  const ReferenceField: any;
+  const ReferenceManyField: any;
+  const SingleFieldList: any;
+  const ChipField: any;
+  const SelectInput: any;
+  const ReferenceInput: any;
+  const RadioButtonGroupInput: any;
+  const AutocompleteInput: any;
+  const ReferenceArrayInput: any;
+  const SelectArrayInput: any;
 }

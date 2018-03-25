@@ -1,4 +1,4 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -11,7 +11,7 @@ export class User {
   @Column()
   @IsString()
   @IsOptional()
-  @ApiModelProperty({
+  @ApiModelPropertyOptional({
     description: "the uri of the user's avatar",
     type: String,
   })
@@ -29,12 +29,16 @@ export class User {
   @Column()
   @IsString()
   @IsOptional()
-  @ApiModelProperty({
+  @ApiModelPropertyOptional({
     description: 'the name of the user',
     type: String,
   })
   public name?: string;
 
+  @ApiModelPropertyOptional({
+    description: 'the list of account linked to this user',
+    type: Array,
+  })
   @OneToMany(type => Account, account => account.user, {
     cascadeInsert: true,
     cascadeUpdate: true,

@@ -11,6 +11,14 @@ export class FindQueryPipe implements PipeTransform<any> {
       }
     }
 
+    if (value.ids) {
+      try {
+        value.ids = JSON.parse(value.ids);
+      } catch (err) {
+        value.ids = value.ids;
+      }
+    }
+
     if (value.skip) {
       try {
         value.skip = parseInt(value.skip, 10);
