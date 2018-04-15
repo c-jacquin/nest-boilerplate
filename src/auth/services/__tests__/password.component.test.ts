@@ -55,7 +55,7 @@ export class PasswordServiceUnit {
     await this.passwordService.authenticateAccount('test', 'foo');
     expect(
       spy.calledWith({
-        relations: ['user'],
+        relations: ['user', 'role'],
         where: { login: 'test' },
       }),
     ).to.equal(true);

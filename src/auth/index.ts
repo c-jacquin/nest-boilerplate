@@ -8,3 +8,4 @@ export * from './guards/isAuthenticated.guard';
 export * from './guards/restrictRoles.decorator';
 export * from './services/password.component';
 export * from './services/token.component';
+export * from './services/admin.fixture';

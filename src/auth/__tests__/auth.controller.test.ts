@@ -25,10 +25,15 @@ export class AuthControllerUnit {
       provide: 'AccountRepository',
       useClass: Repository,
     };
+    const roleRepository = {
+      provide: 'RoleRepository',
+      useClass: Repository,
+    };
     const module = await Test.createTestingModule({
       components: [
         accountRepository,
         userRepository,
+        roleRepository,
         PasswordService,
         TokenService,
       ],

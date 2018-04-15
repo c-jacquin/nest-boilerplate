@@ -1,13 +1,13 @@
 import {
+  Inject,
   MiddlewaresConsumer,
   Module,
   NestModule,
   OnModuleInit,
 } from '@nestjs/common';
-import { InjectRepository, TypeOrmModule } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CommonModule } from '../common';
+import { CommonModule, Env } from '../common';
 import { DatabaseModule } from '../database';
 import { AuthController } from './auth.controller';
 import { AccountController } from './entities/account.controller';
@@ -16,19 +16,16 @@ import { RoleController } from './entities/role.controller';
 import { Role } from './entities/role.entity';
 import { UserController } from './entities/user.controller';
 import { User } from './entities/user.entity';
-import { Roles } from './enums/Roles';
 import { ExposeUserMiddleware } from './middlewares/exposeUser.middleware';
-import { GithubService } from './providers/github.component';
-import { ProvidersController } from './providers/providers.controller';
+import { AdminFixture } from './services/admin.fixture';
 import { PasswordService } from './services/password.component';
 import { TokenService } from './services/token.component';
 
 @Module({
-  components: [GithubService, PasswordService, TokenService],
+  components: [AdminFixture, PasswordService, TokenService],
   controllers: [
     AccountController,
     AuthController,
-    ProvidersController,
     RoleController,
     UserController,
   ],
@@ -41,10 +38,8 @@ import { TokenService } from './services/token.component';
 })
 export class AuthModule implements NestModule, OnModuleInit {
   constructor(
-    @InjectRepository(Account) private accountRepository: Repository<Account>,
-    @InjectRepository(Role) private roleRepository: Repository<Role>,
-    @InjectRepository(User) private userRepository: Repository<User>,
-    private passwordService: PasswordService,
+    private adminFixture: AdminFixture,
+    @Inject(Env) private env: Env,
   ) {}
 
   public configure(consumer: MiddlewaresConsumer): void {
@@ -52,29 +47,8 @@ export class AuthModule implements NestModule, OnModuleInit {
   }
 
   public async onModuleInit() {
-    const accountsLength = await this.accountRepository.count();
-    if (accountsLength === 0) {
-      const user = await this.userRepository.save({
-        email: 'admin@admin.com',
-      });
-      /* tslint:disable */
-      for (const role in Roles) {
-        let existingRole = await this.roleRepository.findOne({ name: role });
-
-        if (!existingRole) {
-          existingRole = await this.roleRepository.save({ name: role })
-
-          if (existingRole.name === Roles.ADMIN) {
-            await this.accountRepository.save({
-              login: 'admin',
-              password: await this.passwordService.hash('admin'),
-              role: existingRole,
-              user,
-            });
-          }
-        }
-      }
-      /* tslint:enable */
+    if (!this.env.isTest()) {
+      await this.adminFixture.insertData();
     }
   }
 }

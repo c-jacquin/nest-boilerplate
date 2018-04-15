@@ -18,8 +18,8 @@ export class NotFoundFilterE2E {
 
   public async after() {
     await this.app.close();
-    await this.databaseService.drop();
-    this.databaseService.closeConnection();
+    // await this.databaseService.drop();
+    await this.databaseService.closeConnection();
   }
 
   @test('should respond with a 404 status and the correct message')

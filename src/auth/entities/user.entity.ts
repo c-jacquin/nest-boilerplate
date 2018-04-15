@@ -17,7 +17,7 @@ export class User {
   })
   public avatar?: string;
 
-  @Column()
+  @Column({ unique: true })
   @IsString()
   @IsOptional()
   @ApiModelProperty({

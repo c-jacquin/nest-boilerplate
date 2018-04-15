@@ -5,4 +5,3 @@
 --full-trace
 --bail
 --reporter spec
-src/**/*.test.ts src/**/*.spec.ts

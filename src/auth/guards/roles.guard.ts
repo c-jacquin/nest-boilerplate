@@ -1,6 +1,5 @@
 import { CanActivate, ExecutionContext, Guard } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../entities/role.entity';
 
 @Guard()
 export class RolesGuard implements CanActivate {

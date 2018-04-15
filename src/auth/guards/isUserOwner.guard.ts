@@ -6,7 +6,7 @@ import { Roles } from '../enums/Roles';
 export class IsUserOwnerGuard implements CanActivate {
   public canActivate(req: any): boolean {
     const isAdmin = () => {
-      return req.user.account.role === Roles.ADMIN;
+      return req.user.account.role.name === Roles.ADMIN;
     };
 
     return (
