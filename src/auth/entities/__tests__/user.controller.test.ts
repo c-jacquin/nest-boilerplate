@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import * as ExpressResponse from 'mock-express-response';
-import * as sinon from 'sinon';
+import ExpressResponse from 'mock-express-response';
+import sinon from 'sinon';
 import { Repository } from '../../../database/__mocks__/Repository.mock';
 
 import { UserController } from '../user.controller';

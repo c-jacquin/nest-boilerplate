@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { suite, test } from 'mocha-typescript';
-import * as randToken from 'rand-token';
-import * as sinon from 'sinon';
+import randToken from 'rand-token';
+import sinon from 'sinon';
 
 import { Env } from '../../../common/env';
 import { Account } from '../../entities/account.entity';

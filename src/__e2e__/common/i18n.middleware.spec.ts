@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
-import * as express from 'express';
+import express from 'express';
 import { suite, test } from 'mocha-typescript';
-import * as sinon from 'sinon';
-import * as request from 'supertest';
+import sinon from 'sinon';
+import request from 'supertest';
 
 import { ApplicationModule } from '../../app.module';
 import { CommonModule, I18n } from '../../common';

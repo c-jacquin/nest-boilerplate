@@ -1,6 +1,6 @@
 import { Component, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 
 import { Account } from '../entities/account.entity';

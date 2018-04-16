@@ -5,7 +5,7 @@ import {
   Resource,
 } from 'admin-on-rest';
 import frenchMessages from 'aor-language-french';
-import * as React from 'react';
+import React from 'react';
 
 import authClient from '../../http/authClient';
 import restClient from '../../http/restClient';

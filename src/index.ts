@@ -11,10 +11,11 @@ import {
 } from './common';
 import { DatabaseFilter, DatabaseModule } from './database';
 
-(async env => {
+(async () => {
   const app = await NestFactory.create(ApplicationModule);
   const commonModule = app.select(CommonModule);
   const databaseModule = app.select(DatabaseModule);
+  const env: Env = app.select(CommonModule).get(Env);
 
   app.useGlobalFilters(
     commonModule.get(BadRequestFilter),
@@ -37,4 +38,4 @@ import { DatabaseFilter, DatabaseModule } from './database';
   app.use(env.SWAGGER_JSON_PATH, (req, res) => res.send(document));
 
   await app.listen(env.PORT);
-})(new Env());
+})();

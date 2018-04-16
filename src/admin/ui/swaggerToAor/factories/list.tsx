@@ -8,7 +8,7 @@ import {
   SingleFieldList,
   TextField,
 } from 'admin-on-rest';
-import * as React from 'react';
+import React from 'react';
 
 import { capitalizeFirstLetter } from '../../helpers/string';
 import { SwaggerAorOptions } from '../interfaces';

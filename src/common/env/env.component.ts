@@ -1,5 +1,5 @@
 import { Component } from '@nestjs/common';
-import * as yenv from 'yenv';
+import yenv from 'yenv';
 
 enum AppEnv {
   LOCAL = 'local',

@@ -1,6 +1,6 @@
 import { ExpressMiddleware, Middleware, NestMiddleware } from '@nestjs/common';
-import * as JsMeter from 'js-meter';
-import * as onHeaders from 'on-headers';
+import JsMeter from 'js-meter';
+import onHeaders from 'on-headers';
 
 import { Env } from '../env';
 import { Logger } from './logger.component';

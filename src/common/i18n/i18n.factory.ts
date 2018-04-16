@@ -1,4 +1,4 @@
-import * as Polyglot from 'node-polyglot';
+import Polyglot from 'node-polyglot';
 
 import { Context } from '../context';
 import { Env } from '../env';

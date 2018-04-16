@@ -126,11 +126,11 @@
       "jsonlint-cli --sort",
       "git add"
     ],
-    ".{yaml,yml}": [
+    "*.{yaml,yml}": [
       "yamllint",
       "git add"
     ],
-    ".md": [
+    "*.md": [
       "markdownlint",
       "git add"
     ]

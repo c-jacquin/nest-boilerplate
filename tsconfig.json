@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "target": "es6",
+    "outDir": "./dist",
     "lib": ["es2016", "es2017"],
     "declaration": false,
     "noImplicitAny": false,
@@ -14,10 +16,10 @@
     "noUnusedLocals": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
     "sourceMap": true,
     "allowJs": true,
-    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "typeRoots": [
       "node_modules/json-d-ts"
     ]

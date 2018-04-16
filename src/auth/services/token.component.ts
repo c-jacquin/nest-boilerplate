@@ -1,6 +1,6 @@
 import { Component } from '@nestjs/common';
-import * as jwt from 'jsonwebtoken';
-import * as randToken from 'rand-token';
+import jwt from 'jsonwebtoken';
+import randToken from 'rand-token';
 
 import { Env } from '../../common';
 import { Account } from '../entities/account.entity';

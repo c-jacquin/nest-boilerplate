@@ -1,5 +1,5 @@
 import { ExpressMiddleware, Middleware, NestMiddleware } from '@nestjs/common';
-import * as uuid from 'uuid';
+import uuid from 'uuid';
 
 import { Context } from '../context';
 

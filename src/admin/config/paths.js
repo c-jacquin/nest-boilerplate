@@ -39,12 +39,12 @@ function getServedPath(appPackageJson) {
 }
 
 module.exports = {
-  appBuild: resolveServerApp('public'),
+  appBuild: resolveServerApp('admin'),
   appHtml: resolveApp('index.html'),
   appIndexJs: resolveApp('index.tsx'),
   appNodeModules: resolveApp('node_modules'),
   appPackageJson: resolveApp('tsconfig.json'),
-  appPublic: resolveApp('public'),
+  appPublic: resolveApp('admin'),
   appSrc: resolveApp(''),
   appTsConfig: resolveApp('tsconfig.json'),
   appTsLint: resolveServerApp('tslint.json'),

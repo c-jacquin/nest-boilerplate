@@ -1,5 +1,5 @@
 import { Component } from '@nestjs/common';
-import * as clfDate from 'clf-date';
+import clfDate from 'clf-date';
 import { Logger as WinstonLogger, transports } from 'winston';
 
 import { Context } from '../context';

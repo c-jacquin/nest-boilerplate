@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
-import * as express from 'express';
+import express from 'express';
 import { suite, test } from 'mocha-typescript';
-import * as request from 'supertest';
+import request from 'supertest';
 
 import { ApplicationModule } from '../../app.module';
 import { AdminFixture, AuthModule } from '../../auth';

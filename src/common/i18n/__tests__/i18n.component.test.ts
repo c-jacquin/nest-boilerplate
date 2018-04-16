@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import * as Polyglot from 'node-polyglot';
-import * as sinon from 'sinon';
+import Polyglot from 'node-polyglot';
+import sinon from 'sinon';
 
 import { Context } from '../../context/__mocks__/context.component.mock';
 import { Env } from '../../env';

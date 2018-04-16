@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { expect } from 'chai';
 import { suite, test } from 'mocha-typescript';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 
 import { Repository } from '../../database/__mocks__/Repository.mock';
 import { AuthController } from '../auth.controller';
